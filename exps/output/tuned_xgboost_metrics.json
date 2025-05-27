@@ -1,0 +1,25 @@
+{
+    "cv_metrics": {
+        "mae": 4088.9079485988304,
+        "rmse": 6033.434014940585,
+        "r2": 0.6112329238209926
+    },
+    "train_metrics": {
+        "MAE": 3821.3634922879864,
+        "RMSE": 5557.520192306594,
+        "R\u00b2": 0.6706825829018814
+    },
+    "test_metrics": {
+        "MAE": 3949.1771875179384,
+        "RMSE": 5642.489909056176,
+        "R\u00b2": 0.6360334632700925
+    },
+    "best_params": {
+        "model__colsample_bytree": 0.8,
+        "model__learning_rate": 0.01,
+        "model__max_depth": 3,
+        "model__min_child_weight": 3,
+        "model__n_estimators": 300,
+        "model__subsample": 0.6
+    }
+}
