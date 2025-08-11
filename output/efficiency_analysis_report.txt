@@ -1,0 +1,122 @@
+
+VEHICLE EFFICIENCY PREDICTION ANALYSIS REPORT
+==============================================
+Generated: 2025-08-11 00:47:18
+
+EXECUTIVE SUMMARY
+-----------------
+This analysis compares machine learning models for predicting vehicle efficiency 
+(mileage/energy_consumption) separately for Electric Vehicles (EV) and Internal 
+Combustion Engine (ICE) vehicles.
+
+DATASET OVERVIEW
+----------------
+• Total vehicles analyzed: 2000
+• Electric Vehicles (EV): 1000 samples
+• ICE Vehicles: 1000 samples
+• Features used for prediction: 7
+
+EFFICIENCY STATISTICS
+---------------------
+EV Efficiency:
+  • Mean: 10054.28 km/unit
+  • Median: 9970.32 km/unit
+  • Standard Deviation: 2451.85
+  • Range: 3821.38 - 18766.47
+
+ICE Efficiency:
+  • Mean: 25232.44 km/unit
+  • Median: 24144.32 km/unit
+  • Standard Deviation: 7996.08
+  • Range: 6148.42 - 101205.60
+
+FEATURES USED FOR PREDICTION
+-----------------------------
+• co2_emissions_g_per_km
+• cost_per_km
+• energy_storage_capacity
+• acceleration_0_100_kph_sec
+• torque_Nm
+• lifespan_years
+• maintenance_cost_annual
+
+MODEL PERFORMANCE RESULTS
+--------------------------
+
+🔋 ELECTRIC VEHICLES - TOP 3 MODELS:
+
+1. Linear Regression
+   • Test MAE: 2052.6780
+   • Test RMSE: 2555.0664
+   • Test R²: -0.0210
+   • CV MAE: 1932.6908 ± 110.3110
+2. Random Forest
+   • Test MAE: 2076.9975
+   • Test RMSE: 2603.0498
+   • Test R²: -0.0597
+   • CV MAE: 1984.4415 ± 94.1241
+3. Gradient Boosting
+   • Test MAE: 2086.2847
+   • Test RMSE: 2654.3234
+   • Test R²: -0.1019
+   • CV MAE: 1982.0153 ± 101.5040
+
+⛽ ICE VEHICLES - TOP 3 MODELS:
+
+1. Linear Regression
+   • Test MAE: 6274.8865
+   • Test RMSE: 7893.4396
+   • Test R²: -0.0228
+   • CV MAE: 6090.0934 ± 183.7272
+2. Gradient Boosting
+   • Test MAE: 6690.0914
+   • Test RMSE: 8117.0379
+   • Test R²: -0.0815
+   • CV MAE: 6379.4120 ± 194.1252
+3. Random Forest
+   • Test MAE: 6788.6676
+   • Test RMSE: 8172.8221
+   • Test R²: -0.0964
+   • CV MAE: 6327.0172 ± 203.2930
+
+KEY INSIGHTS
+------------
+• Best EV Model: Linear Regression (R² = -0.0210)
+• Best ICE Model: Linear Regression (R² = -0.0228)
+• More Predictable Vehicle Type: Electric Vehicles
+• Average EV Efficiency: 10054.28 km/unit
+• Average ICE Efficiency: 25232.44 km/unit
+
+EFFICIENCY COMPARISON
+---------------------
+• ICE Vehicles are 151.0% more efficient on average
+
+RECOMMENDATIONS
+---------------
+• Use Linear Regression for predicting EV efficiency
+• Use Linear Regression for predicting ICE efficiency
+• Focus on the top-performing features identified in feature importance analysis
+• Consider ensemble methods combining top 3 models for each vehicle type
+
+FILES GENERATED
+---------------
+• ev_dataset.csv - Electric vehicle data with efficiency calculations
+• ice_dataset.csv - ICE vehicle data with efficiency calculations
+• ev_model_rankings.csv - EV model performance rankings
+• ice_model_rankings.csv - ICE model performance rankings
+• best_ev_efficiency_model.joblib - Best trained EV model
+• best_ice_efficiency_model.joblib - Best trained ICE model
+• efficiency_analysis_results.json - Complete results in JSON format
+• efficiency_analysis_dashboard.png - Performance visualization
+• feature_correlations.png - Feature correlation heatmaps
+
+METHODOLOGY
+-----------
+• Train-test split: 80/20
+• Cross-validation: 5-fold KFold
+• Preprocessing: StandardScaler for numerical features
+• Evaluation metrics: MAE, RMSE, R²
+• Random state: 42 (for reproducibility)
+
+END OF REPORT
+=============
