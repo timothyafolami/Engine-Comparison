@@ -1,0 +1,6 @@
+feature,importance
+cost_x_maintenance,0.16680631
+log_torque,0.19413222
+maintenance_per_torque,0.24425149
+normalized_cost,0.18564726
+power_efficiency,0.20916273
