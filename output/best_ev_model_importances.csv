@@ -1,8 +1,0 @@
-feature,importance
-co2_emissions_g_per_km,0.15959359318963548
-normalized_cost,0.09382805675140708
-acceleration_0_100_kph_sec,0.12456793030894814
-maintenance_per_year,0.00043950847046567225
-torque_squared,0.23878745134593507
-lifespan_years,0.15281617963715796
-torque_x_lifespan,0.2299672802964507

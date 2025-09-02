@@ -1,9 +1,87 @@
-Experiment Report: Predicting Vehicle Maintenance Costs Using Machine Learning
+Engine Comparison – Vehicle Efficiency Analysis (Modular)
 Overview
-This report documents an experiment conducted to predict vehicle maintenance costs using a dataset comparing electric vehicles (EV) and internal combustion engine (ICE) vehicles. The experiment, implemented in the Jupyter Notebook experiment.ipynb, involves data loading, exploratory data analysis (EDA), preprocessing, model training, hyperparameter tuning, and evaluation. Multiple regression models were evaluated, with a particular focus on optimizing an XGBoost model. The results are visualized, and the tuned model and metrics are saved for future use.
-Experiment Details
-1. Libraries Import
-The experiment begins by importing essential Python libraries for data manipulation, machine learning, and visualization:
+This repository contains pipelines to analyze and predict vehicle efficiency for Electric (EV) and Internal Combustion Engine (ICE) vehicles. The enhanced pipeline has been refactored into a modular package under `ve/` with a simple CLI entry script for better usability.
+Quick Start
+
+1) Install dependencies (optionally include extras for gradient boosters):
+
+```bash
+pip install -r requirements.txt
+```
+
+2) Run the enhanced modular pipeline (defaults: full viz + fine-tuning enabled):
+
+```bash
+python scripts/run_enhanced.py --data-path data/vehicle_comparison_dataset_030417.csv --output-dir output
+```
+
+Flags:
+- `--rank-by {r2|mae}`: Choose ranking metric (default r2).
+- `--no-tuning`: Disable hyperparameter tuning for faster runs.
+
+Outputs are written to `output/`:
+- Rankings: `enhanced_ev_model_rankings.csv`, `enhanced_ice_model_rankings.csv`
+- Best models: `best_enhanced_ev_model.joblib`, `best_enhanced_ice_model.joblib`
+- Parameters: `ev_model_parameters.json`, `ice_model_parameters.json`
+- Selected features: `ev_selected_features.json`, `ice_selected_features.json`
+- Summary JSON: `enhanced_analysis_results.json`
+- Final report: `final_modeling_report.md`
+- Plots: `enhanced_efficiency_dashboard.png`, `cv_stability_{ev,ice,comparison}.png`
+  - If `--full-viz` is set: `individual_plots/01..15_*.png`, `correlation_analysis_dashboard.png`, `detailed_correlation_matrices.png`
+
+Fine-tune Top Models
+You can fine-tune the top two models per cohort using Optuna for boosting models and sklearn search for others:
+
+```bash
+python scripts/finetune_top.py \
+  --data-path data/vehicle_comparison_dataset_030417.csv \
+  --vehicle both \
+  --rank-by r2 \
+  --tuning-metric mae \
+  --search random \
+  --random-iter 60 \
+  --optuna-trials 80
+```
+
+Notes:
+- Boosting models (Gradient Boosting, XGBoost, LightGBM, CatBoost) use Optuna if installed; falls back to sklearn search otherwise.
+- Non-boosting models use `RandomizedSearchCV` by default, or `GridSearchCV` with `--search grid`.
+- Tuning artifacts are saved to `output/` as `tuned_<ev|ice>_<model>.joblib`, `tuned_*_metrics.json`, and summaries as `tuned_<ev|ice>_top2_summary.json`.
+
+Disable defaults if needed:
+- `--no-full-viz` to skip heavy plots
+- `--no-fine-tune-top2` to skip fine-tuning
+
+What’s New (Refactor Highlights)
+- Split the monolithic enhanced script into focused modules:
+  - `ve/data.py`: Loading, efficiency computation, outlier removal.
+  - `ve/features.py`: Feature engineering and selection (no leakage).
+  - `ve/models.py`: Model registry and tuning grids.
+  - `ve/training.py`: Training, CV, and rankings.
+  - `ve/viz.py`: Lightweight dashboards and CV stability plots.
+  - `ve/reporting.py`: Save artifacts and generate the final Markdown report.
+  - `ve/pipeline.py`: Orchestrator used by `scripts/run_enhanced.py`.
+- Added `--rank-by` option (R² or MAE) to better reflect your goals.
+- Added `--full-viz` to generate comprehensive dashboards and 15 individual plots.
+- Added `--fine-tune-top2` to tune best candidates (Optuna for boosting, sklearn for others) and fold them into rankings and the final report.
+- Recorded `sklearn_version` correctly for reproducibility.
+- Simplified preprocessing: scale/power-transform only for linear models; tree/boosting models use raw features.
+
+Legacy and Experiments
+- The original monolithic `enhanced_vehicle_efficiency_analysis.py` is now a thin wrapper over the modular pipeline. The baseline `vehicle_efficiency_analysis.py` remains for reference.
+- The `exps/` folder contains the earlier maintenance-cost and visualization experiments.
+
+Notes
+- Data leakage is prevented by excluding `mileage_km` and `energy_consumption` from the feature matrix when predicting `efficiency` (which is `mileage_km / energy_consumption`).
+- If your dataset differs from `data/vehicle_comparison_dataset_030417.csv`, ensure matching column names.
+
+Deprecated
+- `scripts/generate_report.py` now forwards to `ve.reporting.write_final_report_markdown`. Prefer `scripts/run_enhanced.py` which generates the report automatically.
+
+---
+
+Maintenance Cost Experiment (Legacy)
+The repository also includes a legacy experiment focused on predicting annual maintenance cost (see `exps/experiment.ipynb`). It demonstrates a parallel setup (EDA, preprocessing, multiple models, hyperparameter tuning) and persists a tuned XGBoost model and metrics. While still usable, the modular enhanced pipeline is recommended for current work.
 
 Data Handling: numpy for numerical operations, pandas for data manipulation.
 Model Persistence: joblib for saving models.

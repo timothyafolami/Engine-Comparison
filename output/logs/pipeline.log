@@ -1,0 +1,314 @@
+2025-09-02 18:05:02 | INFO     | ve.pipeline:run:64 - Starting enhanced pipeline run | data_path='data/vehicle_comparison_dataset_030417.csv' | rank_by='r2' | full_viz=True | fine_tune_top2=True | enable_tuning=True
+2025-09-02 18:05:02 | INFO     | ve.data:load_and_prepare_data:35 - Loading data from 'data/vehicle_comparison_dataset_030417.csv'
+2025-09-02 18:05:02 | INFO     | ve.data:load_and_prepare_data:37 - Loaded dataframe with shape (2000, 10)
+2025-09-02 18:05:02 | INFO     | ve.data:load_and_prepare_data:50 - Removed outliers by efficiency | kept 1983 of 2000 rows (-17 removed)
+2025-09-02 18:05:02 | INFO     | ve.data:load_and_prepare_data:61 - Split datasets | EV shape (1000, 10) | ICE shape (983, 10)
+2025-09-02 18:05:02 | INFO     | ve.pipeline:run:69 - Engineering features for EV and ICE cohorts
+2025-09-02 18:05:02 | INFO     | ve.features:engineer_features:87 - Engineered 22 features (excluding originals & target)
+2025-09-02 18:05:02 | INFO     | ve.features:engineer_features:87 - Engineered 22 features (excluding originals & target)
+2025-09-02 18:05:02 | INFO     | ve.pipeline:run:76 - Selecting features per cohort
+2025-09-02 18:05:02 | INFO     | ve.features:select_features:138 - Selected 7 features for 'ELECTRIC VEHICLES' cohort
+2025-09-02 18:05:02 | INFO     | ve.features:select_features:138 - Selected 5 features for 'ICE VEHICLES' cohort
+2025-09-02 18:05:02 | INFO     | ve.pipeline:run:79 - Selected features | EV=7 | ICE=5
+2025-09-02 18:05:02 | INFO     | ve.pipeline:run:86 - Training models for EV cohort
+2025-09-02 18:05:02 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
+2025-09-02 18:05:06 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 1934.08±114.98 | Test MAE 2034.76 | Test R² -0.0056
+2025-09-02 18:05:06 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
+2025-09-02 18:05:07 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 1933.05±114.59 | Test MAE 2041.89 | Test R² -0.0054
+2025-09-02 18:05:07 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
+2025-09-02 18:05:07 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 1933.74±114.03 | Test MAE 2041.92 | Test R² -0.0006
+2025-09-02 18:05:07 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
+2025-09-02 18:05:38 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 2026.00±101.88 | Test MAE 2023.03 | Test R² 0.0011
+2025-09-02 18:05:38 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
+2025-09-02 18:06:09 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 2024.03±85.31 | Test MAE 2043.35 | Test R² 0.0002
+2025-09-02 18:06:09 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
+2025-09-02 18:06:09 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 2466.54±207.24 | Test MAE 2045.63 | Test R² -0.0109
+2025-09-02 18:06:09 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
+2025-09-02 18:06:43 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 2166.01±137.40 | Test MAE 2040.02 | Test R² 0.0009
+2025-09-02 18:06:43 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
+2025-09-02 18:07:35 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 2076.62±101.13 | Test MAE 2039.55 | Test R² 0.0014
+2025-09-02 18:07:35 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
+2025-09-02 18:10:19 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 2185.23±120.29 | Test MAE 2038.20 | Test R² 0.0031
+2025-09-02 18:10:19 | INFO     | ve.pipeline:run:88 - Training models for ICE cohort
+2025-09-02 18:10:19 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
+2025-09-02 18:10:19 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 5836.60±186.52 | Test MAE 5367.33 | Test R² -0.0494
+2025-09-02 18:10:19 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
+2025-09-02 18:10:20 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 5834.84±184.53 | Test MAE 5340.50 | Test R² -0.0362
+2025-09-02 18:10:20 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
+2025-09-02 18:10:20 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 5835.30±185.84 | Test MAE 5346.15 | Test R² -0.0429
+2025-09-02 18:10:20 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
+2025-09-02 18:10:49 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 6230.08±306.90 | Test MAE 5385.18 | Test R² -0.0782
+2025-09-02 18:10:49 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
+2025-09-02 18:11:19 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 6157.77±353.68 | Test MAE 5332.00 | Test R² -0.0286
+2025-09-02 18:11:19 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
+2025-09-02 18:11:20 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 6888.08±227.96 | Test MAE 5424.64 | Test R² -0.0869
+2025-09-02 18:11:20 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
+2025-09-02 18:11:40 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 6885.78±334.27 | Test MAE 5330.63 | Test R² -0.0274
+2025-09-02 18:11:40 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
+2025-09-02 18:12:15 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 6376.82±311.01 | Test MAE 5333.69 | Test R² -0.0283
+2025-09-02 18:12:15 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
+2025-09-02 18:14:48 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 6675.81±241.79 | Test MAE 5327.97 | Test R² -0.0301
+2025-09-02 18:14:48 | INFO     | ve.pipeline:run:110 - Fine-tuning top-2 for EV cohort | metric='mae'
+2025-09-02 18:14:48 | INFO     | ve.tuning:finetune_top_two:233 - Ranking base models to select top-2 for fine-tuning | rank_by='r2'
+2025-09-02 18:14:48 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
+2025-09-02 18:14:49 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 1934.08±114.98 | Test MAE 2034.76 | Test R² -0.0056
+2025-09-02 18:14:49 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
+2025-09-02 18:14:49 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 1933.05±114.59 | Test MAE 2036.97 | Test R² -0.0070
+2025-09-02 18:14:49 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
+2025-09-02 18:14:49 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 1933.74±114.03 | Test MAE 2036.95 | Test R² -0.0070
+2025-09-02 18:14:49 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
+2025-09-02 18:14:50 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 2026.00±101.88 | Test MAE 2074.84 | Test R² -0.0330
+2025-09-02 18:14:50 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
+2025-09-02 18:14:50 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 2024.03±85.31 | Test MAE 1999.66 | Test R² 0.0122
+2025-09-02 18:14:50 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
+2025-09-02 18:14:50 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 2466.54±207.24 | Test MAE 2388.10 | Test R² -0.4960
+2025-09-02 18:14:50 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
+2025-09-02 18:14:51 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 2166.01±137.40 | Test MAE 2204.86 | Test R² -0.1511
+2025-09-02 18:14:51 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
+2025-09-02 18:14:54 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 2076.62±101.13 | Test MAE 2185.10 | Test R² -0.1439
+2025-09-02 18:14:54 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
+2025-09-02 18:14:55 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 2185.23±120.29 | Test MAE 2145.19 | Test R² -0.1384
+2025-09-02 18:14:55 | INFO     | ve.tuning:finetune_top_two:238 - Selected top-2 for tuning: ['Gradient Boosting', 'Linear Regression']
+2025-09-02 18:14:55 | INFO     | ve.tuning:finetune_top_two:248 - Tuning 'Gradient Boosting' with Optuna (if available) | metric='mae' | trials=50
+2025-09-02 18:15:33 | INFO     | ve.tuning:finetune_top_two:269 - Tuned 'Gradient Boosting' | Test MAE 2041.70 | Test R² -0.0004
+2025-09-02 18:15:33 | INFO     | ve.tuning:finetune_top_two:255 - Tuning 'Linear Regression' with sklearn 'random' search | metric='mae'
+2025-09-02 18:15:33 | INFO     | ve.tuning:finetune_top_two:269 - Tuned 'Linear Regression' | Test MAE 2034.76 | Test R² -0.0056
+2025-09-02 18:15:33 | INFO     | ve.pipeline:run:112 - Fine-tuning top-2 for ICE cohort | metric='mae'
+2025-09-02 18:15:33 | INFO     | ve.tuning:finetune_top_two:233 - Ranking base models to select top-2 for fine-tuning | rank_by='r2'
+2025-09-02 18:15:33 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
+2025-09-02 18:15:33 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 5836.60±186.52 | Test MAE 5367.33 | Test R² -0.0494
+2025-09-02 18:15:33 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
+2025-09-02 18:15:33 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 5834.84±184.53 | Test MAE 5367.07 | Test R² -0.0493
+2025-09-02 18:15:33 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
+2025-09-02 18:15:33 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 5835.30±185.84 | Test MAE 5366.70 | Test R² -0.0492
+2025-09-02 18:15:33 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
+2025-09-02 18:15:34 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 6230.08±306.90 | Test MAE 5597.03 | Test R² -0.1846
+2025-09-02 18:15:34 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
+2025-09-02 18:15:34 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 6157.77±353.68 | Test MAE 5661.85 | Test R² -0.1887
+2025-09-02 18:15:34 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
+2025-09-02 18:15:34 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 6888.08±227.96 | Test MAE 6125.75 | Test R² -0.4991
+2025-09-02 18:15:34 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
+2025-09-02 18:15:34 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 6885.78±334.27 | Test MAE 6080.83 | Test R² -0.4028
+2025-09-02 18:15:34 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
+2025-09-02 18:15:36 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 6376.82±311.01 | Test MAE 5885.40 | Test R² -0.2750
+2025-09-02 18:15:36 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
+2025-09-02 18:15:37 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 6675.81±241.79 | Test MAE 6015.82 | Test R² -0.3230
+2025-09-02 18:15:37 | INFO     | ve.tuning:finetune_top_two:238 - Selected top-2 for tuning: ['Lasso Regression', 'Ridge Regression']
+2025-09-02 18:15:37 | INFO     | ve.tuning:finetune_top_two:255 - Tuning 'Lasso Regression' with sklearn 'random' search | metric='mae'
+2025-09-02 18:15:38 | INFO     | ve.tuning:finetune_top_two:269 - Tuned 'Lasso Regression' | Test MAE 5345.98 | Test R² -0.0426
+2025-09-02 18:15:38 | INFO     | ve.tuning:finetune_top_two:255 - Tuning 'Ridge Regression' with sklearn 'random' search | metric='mae'
+2025-09-02 18:15:39 | INFO     | ve.tuning:finetune_top_two:269 - Tuned 'Ridge Regression' | Test MAE 5343.68 | Test R² -0.0387
+2025-09-02 18:15:39 | INFO     | ve.pipeline:run:120 - Best models | EV='LightGBM' (test_r2=0.0031) | ICE='XGBoost' (test_r2=-0.0274)
+2025-09-02 22:47:10 | INFO     | ve.pipeline:run:64 - Starting enhanced pipeline run | data_path='data/vehicle_comparison_dataset_030417.csv' | rank_by='r2' | full_viz=True | fine_tune_top2=True | enable_tuning=True
+2025-09-02 22:47:10 | INFO     | ve.data:load_and_prepare_data:35 - Loading data from 'data/vehicle_comparison_dataset_030417.csv'
+2025-09-02 22:47:10 | INFO     | ve.data:load_and_prepare_data:37 - Loaded dataframe with shape (2000, 10)
+2025-09-02 22:47:10 | INFO     | ve.data:load_and_prepare_data:50 - Removed outliers by efficiency | kept 1983 of 2000 rows (-17 removed)
+2025-09-02 22:47:10 | INFO     | ve.data:load_and_prepare_data:61 - Split datasets | EV shape (1000, 10) | ICE shape (983, 10)
+2025-09-02 22:47:10 | INFO     | ve.pipeline:run:69 - Engineering features for EV and ICE cohorts
+2025-09-02 22:47:10 | INFO     | ve.features:engineer_features:87 - Engineered 22 features (excluding originals & target)
+2025-09-02 22:47:10 | INFO     | ve.features:engineer_features:87 - Engineered 22 features (excluding originals & target)
+2025-09-02 22:47:10 | INFO     | ve.pipeline:run:76 - Selecting features per cohort
+2025-09-02 22:47:10 | INFO     | ve.features:select_features:138 - Selected 7 features for 'ELECTRIC VEHICLES' cohort
+2025-09-02 22:47:10 | INFO     | ve.features:select_features:138 - Selected 5 features for 'ICE VEHICLES' cohort
+2025-09-02 22:47:10 | INFO     | ve.pipeline:run:79 - Selected features | EV=7 | ICE=5
+2025-09-02 22:47:10 | INFO     | ve.pipeline:run:86 - Training models for EV cohort
+2025-09-02 22:47:10 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
+2025-09-02 22:47:13 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 1934.08±114.98 | Test MAE 2034.76 | Test R² -0.0056
+2025-09-02 22:47:13 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
+2025-09-02 22:47:14 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 1933.05±114.59 | Test MAE 2041.89 | Test R² -0.0054
+2025-09-02 22:47:14 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
+2025-09-02 22:47:14 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 1933.74±114.03 | Test MAE 2041.92 | Test R² -0.0006
+2025-09-02 22:47:14 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
+2025-09-02 22:47:40 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 2026.00±101.88 | Test MAE 2023.03 | Test R² 0.0011
+2025-09-02 22:47:40 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
+2025-09-02 22:48:10 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 2024.03±85.31 | Test MAE 2043.35 | Test R² 0.0002
+2025-09-02 22:48:10 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
+2025-09-02 22:48:10 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 2466.54±207.24 | Test MAE 2045.63 | Test R² -0.0109
+2025-09-02 22:48:10 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
+2025-09-02 22:48:40 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 2166.01±137.40 | Test MAE 2040.02 | Test R² 0.0009
+2025-09-02 22:48:40 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
+2025-09-02 22:49:24 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 2076.62±101.13 | Test MAE 2039.55 | Test R² 0.0014
+2025-09-02 22:49:24 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
+2025-09-02 22:51:47 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 2185.23±120.29 | Test MAE 2038.20 | Test R² 0.0031
+2025-09-02 22:51:47 | INFO     | ve.pipeline:run:88 - Training models for ICE cohort
+2025-09-02 22:51:47 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
+2025-09-02 22:51:47 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 5836.60±186.52 | Test MAE 5367.33 | Test R² -0.0494
+2025-09-02 22:51:47 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
+2025-09-02 22:51:48 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 5834.84±184.53 | Test MAE 5340.50 | Test R² -0.0362
+2025-09-02 22:51:48 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
+2025-09-02 22:51:48 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 5835.30±185.84 | Test MAE 5346.15 | Test R² -0.0429
+2025-09-02 22:51:48 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
+2025-09-02 22:52:11 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 6230.08±306.90 | Test MAE 5385.18 | Test R² -0.0782
+2025-09-02 22:52:11 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
+2025-09-02 22:52:37 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 6157.77±353.68 | Test MAE 5332.00 | Test R² -0.0286
+2025-09-02 22:52:37 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
+2025-09-02 22:52:38 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 6888.08±227.96 | Test MAE 5424.64 | Test R² -0.0869
+2025-09-02 22:52:38 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
+2025-09-02 22:52:54 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 6885.78±334.27 | Test MAE 5330.63 | Test R² -0.0274
+2025-09-02 22:52:54 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
+2025-09-02 22:53:19 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 6376.82±311.01 | Test MAE 5333.69 | Test R² -0.0283
+2025-09-02 22:53:19 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
+2025-09-02 22:55:35 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 6675.81±241.79 | Test MAE 5327.97 | Test R² -0.0301
+2025-09-02 22:55:35 | INFO     | ve.pipeline:run:110 - Fine-tuning top-2 for EV cohort | metric='mae'
+2025-09-02 22:55:35 | INFO     | ve.tuning:finetune_top_two:237 - Ranking base models to select top-2 for fine-tuning | rank_by='r2'
+2025-09-02 22:55:35 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
+2025-09-02 22:55:35 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 1934.08±114.98 | Test MAE 2034.76 | Test R² -0.0056
+2025-09-02 22:55:35 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
+2025-09-02 22:55:35 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 1933.05±114.59 | Test MAE 2036.97 | Test R² -0.0070
+2025-09-02 22:55:35 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
+2025-09-02 22:55:35 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 1933.74±114.03 | Test MAE 2036.95 | Test R² -0.0070
+2025-09-02 22:55:35 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
+2025-09-02 22:55:36 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 2026.00±101.88 | Test MAE 2074.84 | Test R² -0.0330
+2025-09-02 22:55:36 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
+2025-09-02 22:55:37 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 2024.03±85.31 | Test MAE 1999.66 | Test R² 0.0122
+2025-09-02 22:55:37 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
+2025-09-02 22:55:37 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 2466.54±207.24 | Test MAE 2388.10 | Test R² -0.4960
+2025-09-02 22:55:37 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
+2025-09-02 22:55:37 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 2166.01±137.40 | Test MAE 2204.86 | Test R² -0.1511
+2025-09-02 22:55:37 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
+2025-09-02 22:55:40 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 2076.62±101.13 | Test MAE 2185.10 | Test R² -0.1439
+2025-09-02 22:55:40 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
+2025-09-02 22:55:41 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 2185.23±120.29 | Test MAE 2145.19 | Test R² -0.1384
+2025-09-02 22:55:41 | INFO     | ve.tuning:finetune_top_two:242 - Selected top-2 for tuning: ['Gradient Boosting', 'Linear Regression']
+2025-09-02 22:55:41 | INFO     | ve.tuning:finetune_top_two:252 - Tuning 'Gradient Boosting' with Optuna (if available) | metric='mae' | trials=50
+2025-09-02 22:56:18 | INFO     | ve.tuning:finetune_top_two:273 - Tuned 'Gradient Boosting' | Test MAE 2041.41 | Test R² -0.0003
+2025-09-02 22:56:18 | INFO     | ve.tuning:finetune_top_two:259 - Tuning 'Linear Regression' with sklearn 'random' search | metric='mae'
+2025-09-02 22:56:18 | INFO     | ve.tuning:finetune_top_two:273 - Tuned 'Linear Regression' | Test MAE 2034.76 | Test R² -0.0056
+2025-09-02 22:56:18 | INFO     | ve.pipeline:run:112 - Fine-tuning top-2 for ICE cohort | metric='mae'
+2025-09-02 22:56:18 | INFO     | ve.tuning:finetune_top_two:237 - Ranking base models to select top-2 for fine-tuning | rank_by='r2'
+2025-09-02 22:56:18 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
+2025-09-02 22:56:18 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 5836.60±186.52 | Test MAE 5367.33 | Test R² -0.0494
+2025-09-02 22:56:18 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
+2025-09-02 22:56:18 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 5834.84±184.53 | Test MAE 5367.07 | Test R² -0.0493
+2025-09-02 22:56:18 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
+2025-09-02 22:56:18 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 5835.30±185.84 | Test MAE 5366.70 | Test R² -0.0492
+2025-09-02 22:56:18 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
+2025-09-02 22:56:19 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 6230.08±306.90 | Test MAE 5597.03 | Test R² -0.1846
+2025-09-02 22:56:19 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
+2025-09-02 22:56:19 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 6157.77±353.68 | Test MAE 5661.85 | Test R² -0.1887
+2025-09-02 22:56:19 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
+2025-09-02 22:56:19 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 6888.08±227.96 | Test MAE 6125.75 | Test R² -0.4991
+2025-09-02 22:56:19 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
+2025-09-02 22:56:20 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 6885.78±334.27 | Test MAE 6080.83 | Test R² -0.4028
+2025-09-02 22:56:20 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
+2025-09-02 22:56:22 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 6376.82±311.01 | Test MAE 5885.40 | Test R² -0.2750
+2025-09-02 22:56:22 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
+2025-09-02 22:56:23 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 6675.81±241.79 | Test MAE 6015.82 | Test R² -0.3230
+2025-09-02 22:56:23 | INFO     | ve.tuning:finetune_top_two:242 - Selected top-2 for tuning: ['Lasso Regression', 'Ridge Regression']
+2025-09-02 22:56:23 | INFO     | ve.tuning:finetune_top_two:259 - Tuning 'Lasso Regression' with sklearn 'random' search | metric='mae'
+2025-09-02 22:56:24 | INFO     | ve.tuning:finetune_top_two:273 - Tuned 'Lasso Regression' | Test MAE 5345.98 | Test R² -0.0426
+2025-09-02 22:56:24 | INFO     | ve.tuning:finetune_top_two:259 - Tuning 'Ridge Regression' with sklearn 'random' search | metric='mae'
+2025-09-02 22:56:24 | INFO     | ve.tuning:finetune_top_two:273 - Tuned 'Ridge Regression' | Test MAE 5343.68 | Test R² -0.0387
+2025-09-02 22:56:24 | INFO     | ve.pipeline:run:120 - Best models | EV='LightGBM' (test_r2=0.0031) | ICE='XGBoost' (test_r2=-0.0274)
+2025-09-02 22:56:24 | INFO     | ve.reporting:save_core_artifacts:32 - Saving rankings and results artifacts to output
+2025-09-02 22:57:35 | INFO     | ve.pipeline:run:64 - Starting enhanced pipeline run | data_path='data/vehicle_comparison_dataset_030417.csv' | rank_by='r2' | full_viz=True | fine_tune_top2=True | enable_tuning=True
+2025-09-02 22:57:35 | INFO     | ve.data:load_and_prepare_data:35 - Loading data from 'data/vehicle_comparison_dataset_030417.csv'
+2025-09-02 22:57:35 | INFO     | ve.data:load_and_prepare_data:37 - Loaded dataframe with shape (2000, 10)
+2025-09-02 22:57:35 | INFO     | ve.data:load_and_prepare_data:50 - Removed outliers by efficiency | kept 1983 of 2000 rows (-17 removed)
+2025-09-02 22:57:35 | INFO     | ve.data:load_and_prepare_data:61 - Split datasets | EV shape (1000, 10) | ICE shape (983, 10)
+2025-09-02 22:57:35 | INFO     | ve.pipeline:run:69 - Engineering features for EV and ICE cohorts
+2025-09-02 22:57:35 | INFO     | ve.features:engineer_features:87 - Engineered 22 features (excluding originals & target)
+2025-09-02 22:57:35 | INFO     | ve.features:engineer_features:87 - Engineered 22 features (excluding originals & target)
+2025-09-02 22:57:35 | INFO     | ve.pipeline:run:76 - Selecting features per cohort
+2025-09-02 22:57:35 | INFO     | ve.features:select_features:138 - Selected 7 features for 'ELECTRIC VEHICLES' cohort
+2025-09-02 22:57:35 | INFO     | ve.features:select_features:138 - Selected 5 features for 'ICE VEHICLES' cohort
+2025-09-02 22:57:35 | INFO     | ve.pipeline:run:79 - Selected features | EV=7 | ICE=5
+2025-09-02 22:57:35 | INFO     | ve.pipeline:run:86 - Training models for EV cohort
+2025-09-02 22:57:35 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
+2025-09-02 22:57:40 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 1934.08±114.98 | Test MAE 2034.76 | Test R² -0.0056
+2025-09-02 22:57:40 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
+2025-09-02 22:57:42 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 1933.05±114.59 | Test MAE 2041.89 | Test R² -0.0054
+2025-09-02 22:57:42 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
+2025-09-02 22:57:42 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 1933.74±114.03 | Test MAE 2041.92 | Test R² -0.0006
+2025-09-02 22:57:42 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
+2025-09-02 22:58:07 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 2026.00±101.88 | Test MAE 2023.03 | Test R² 0.0011
+2025-09-02 22:58:07 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
+2025-09-02 22:58:34 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 2024.03±85.31 | Test MAE 2043.35 | Test R² 0.0002
+2025-09-02 22:58:34 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
+2025-09-02 22:58:35 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 2466.54±207.24 | Test MAE 2045.63 | Test R² -0.0109
+2025-09-02 22:58:35 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
+2025-09-02 22:58:59 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 2166.01±137.40 | Test MAE 2040.02 | Test R² 0.0009
+2025-09-02 22:58:59 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
+2025-09-02 22:59:37 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 2076.62±101.13 | Test MAE 2039.55 | Test R² 0.0014
+2025-09-02 22:59:37 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
+2025-09-02 23:02:00 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 2185.23±120.29 | Test MAE 2038.20 | Test R² 0.0031
+2025-09-02 23:02:00 | INFO     | ve.pipeline:run:88 - Training models for ICE cohort
+2025-09-02 23:02:00 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
+2025-09-02 23:02:00 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 5836.60±186.52 | Test MAE 5367.33 | Test R² -0.0494
+2025-09-02 23:02:00 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
+2025-09-02 23:02:00 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 5834.84±184.53 | Test MAE 5340.50 | Test R² -0.0362
+2025-09-02 23:02:00 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
+2025-09-02 23:02:00 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 5835.30±185.84 | Test MAE 5346.15 | Test R² -0.0429
+2025-09-02 23:02:00 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
+2025-09-02 23:02:23 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 6230.08±306.90 | Test MAE 5385.18 | Test R² -0.0782
+2025-09-02 23:02:23 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
+2025-09-02 23:02:47 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 6157.77±353.68 | Test MAE 5332.00 | Test R² -0.0286
+2025-09-02 23:02:47 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
+2025-09-02 23:02:47 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 6888.08±227.96 | Test MAE 5424.64 | Test R² -0.0869
+2025-09-02 23:02:47 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
+2025-09-02 23:03:06 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 6885.78±334.27 | Test MAE 5330.63 | Test R² -0.0274
+2025-09-02 23:03:06 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
+2025-09-02 23:03:33 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 6376.82±311.01 | Test MAE 5333.69 | Test R² -0.0283
+2025-09-02 23:03:33 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
+2025-09-02 23:05:48 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 6675.81±241.79 | Test MAE 5327.97 | Test R² -0.0301
+2025-09-02 23:05:48 | INFO     | ve.pipeline:run:110 - Fine-tuning top-2 for EV cohort | metric='mae'
+2025-09-02 23:05:49 | INFO     | ve.tuning:finetune_top_two:237 - Ranking base models to select top-2 for fine-tuning | rank_by='r2'
+2025-09-02 23:05:49 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
+2025-09-02 23:05:49 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 1934.08±114.98 | Test MAE 2034.76 | Test R² -0.0056
+2025-09-02 23:05:49 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
+2025-09-02 23:05:49 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 1933.05±114.59 | Test MAE 2036.97 | Test R² -0.0070
+2025-09-02 23:05:49 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
+2025-09-02 23:05:49 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 1933.74±114.03 | Test MAE 2036.95 | Test R² -0.0070
+2025-09-02 23:05:49 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
+2025-09-02 23:05:49 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 2026.00±101.88 | Test MAE 2074.84 | Test R² -0.0330
+2025-09-02 23:05:49 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
+2025-09-02 23:05:50 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 2024.03±85.31 | Test MAE 1999.66 | Test R² 0.0122
+2025-09-02 23:05:50 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
+2025-09-02 23:05:50 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 2466.54±207.24 | Test MAE 2388.10 | Test R² -0.4960
+2025-09-02 23:05:50 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
+2025-09-02 23:05:50 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 2166.01±137.40 | Test MAE 2204.86 | Test R² -0.1511
+2025-09-02 23:05:50 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
+2025-09-02 23:05:52 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 2076.62±101.13 | Test MAE 2185.10 | Test R² -0.1439
+2025-09-02 23:05:52 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
+2025-09-02 23:05:53 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 2185.23±120.29 | Test MAE 2145.19 | Test R² -0.1384
+2025-09-02 23:05:53 | INFO     | ve.tuning:finetune_top_two:242 - Selected top-2 for tuning: ['Gradient Boosting', 'Linear Regression']
+2025-09-02 23:05:53 | INFO     | ve.tuning:finetune_top_two:252 - Tuning 'Gradient Boosting' with Optuna (if available) | metric='mae' | trials=50
+2025-09-02 23:06:25 | INFO     | ve.tuning:finetune_top_two:273 - Tuned 'Gradient Boosting' | Test MAE 2041.50 | Test R² -0.0002
+2025-09-02 23:06:25 | INFO     | ve.tuning:finetune_top_two:259 - Tuning 'Linear Regression' with sklearn 'random' search | metric='mae'
+2025-09-02 23:06:25 | INFO     | ve.tuning:finetune_top_two:273 - Tuned 'Linear Regression' | Test MAE 2034.76 | Test R² -0.0056
+2025-09-02 23:06:25 | INFO     | ve.pipeline:run:112 - Fine-tuning top-2 for ICE cohort | metric='mae'
+2025-09-02 23:06:25 | INFO     | ve.tuning:finetune_top_two:237 - Ranking base models to select top-2 for fine-tuning | rank_by='r2'
+2025-09-02 23:06:25 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
+2025-09-02 23:06:25 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 5836.60±186.52 | Test MAE 5367.33 | Test R² -0.0494
+2025-09-02 23:06:25 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
+2025-09-02 23:06:25 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 5834.84±184.53 | Test MAE 5367.07 | Test R² -0.0493
+2025-09-02 23:06:25 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
+2025-09-02 23:06:25 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 5835.30±185.84 | Test MAE 5366.70 | Test R² -0.0492
+2025-09-02 23:06:25 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
+2025-09-02 23:06:26 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 6230.08±306.90 | Test MAE 5597.03 | Test R² -0.1846
+2025-09-02 23:06:26 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
+2025-09-02 23:06:26 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 6157.77±353.68 | Test MAE 5661.85 | Test R² -0.1887
+2025-09-02 23:06:26 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
+2025-09-02 23:06:26 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 6888.08±227.96 | Test MAE 6125.75 | Test R² -0.4991
+2025-09-02 23:06:26 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
+2025-09-02 23:06:26 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 6885.78±334.27 | Test MAE 6080.83 | Test R² -0.4028
+2025-09-02 23:06:26 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
+2025-09-02 23:06:28 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 6376.82±311.01 | Test MAE 5885.40 | Test R² -0.2750
+2025-09-02 23:06:28 | INFO     | ve.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
+2025-09-02 23:06:29 | INFO     | ve.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 6675.81±241.79 | Test MAE 6015.82 | Test R² -0.3230
+2025-09-02 23:06:29 | INFO     | ve.tuning:finetune_top_two:242 - Selected top-2 for tuning: ['Lasso Regression', 'Ridge Regression']
+2025-09-02 23:06:29 | INFO     | ve.tuning:finetune_top_two:259 - Tuning 'Lasso Regression' with sklearn 'random' search | metric='mae'
+2025-09-02 23:06:30 | INFO     | ve.tuning:finetune_top_two:273 - Tuned 'Lasso Regression' | Test MAE 5345.98 | Test R² -0.0426
+2025-09-02 23:06:30 | INFO     | ve.tuning:finetune_top_two:259 - Tuning 'Ridge Regression' with sklearn 'random' search | metric='mae'
+2025-09-02 23:06:30 | INFO     | ve.tuning:finetune_top_two:273 - Tuned 'Ridge Regression' | Test MAE 5343.68 | Test R² -0.0387
+2025-09-02 23:06:30 | INFO     | ve.pipeline:run:120 - Best models | EV='LightGBM' (test_r2=0.0031) | ICE='XGBoost' (test_r2=-0.0274)
+2025-09-02 23:06:30 | INFO     | ve.reporting:save_core_artifacts:32 - Saving rankings and results artifacts to output
+2025-09-02 23:06:30 | INFO     | ve.reporting:write_final_report_markdown:163 - Report written to output/final_modeling_report.md
+2025-09-02 23:06:30 | INFO     | ve.pipeline:run:152 - Final report written to output/final_modeling_report.md
+2025-09-02 23:06:30 | INFO     | ve.viz:simple_dashboard:62 - Saving simple dashboard to output/enhanced_efficiency_dashboard.png
+2025-09-02 23:06:31 | INFO     | ve.viz:cv_stability_plots:13 - Saving CV stability plots to output
+2025-09-02 23:06:32 | INFO     | ve.pipeline:run:161 - Generating advanced visualizations (individual plots and dashboards)
+2025-09-02 23:06:32 | INFO     | ve.viz:advanced_viz:562 - Generating advanced visualizations into output
+2025-09-02 23:06:32 | INFO     | ve.viz:individual_plots:181 - Saving individual plots to output/individual_plots
+2025-09-02 23:06:35 | INFO     | ve.viz:correlation_analysis_dashboard:388 - Saving correlation analysis dashboard to output/correlation_analysis_dashboard.png
+2025-09-02 23:06:36 | INFO     | ve.viz:detailed_correlation_matrices:498 - Saving detailed correlation matrices to output/detailed_correlation_matrices.png
