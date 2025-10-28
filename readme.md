@@ -1,19 +1,106 @@
-Engine Comparison – Vehicle Efficiency Analysis (Modular)
-Overview
-This repository contains pipelines to analyze and predict vehicle efficiency for Electric (EV) and Internal Combustion Engine (ICE) vehicles. The enhanced pipeline has been refactored into a modular package under `ve/` with a simple CLI entry script for better usability.
-Quick Start
+# Vehicle Efficiency Analysis Package
 
-1) Install dependencies (optionally include extras for gradient boosters):
+A comprehensive machine learning package for analyzing and predicting vehicle efficiency across different vehicle types (Electric Vehicles and Internal Combustion Engine vehicles).
 
+## Overview
+
+This repository contains a professional Python package for vehicle efficiency analysis with:
+- Modular architecture following Python packaging best practices
+- Command-line interface for easy usage
+- Comprehensive machine learning pipeline
+- Advanced visualization and reporting capabilities
+- Support for multiple ML models and hyperparameter optimization
+
+## Installation
+
+### Option 1: Development Installation
 ```bash
+# Clone the repository
+git clone <repository-url>
+cd "Engine Comparison"
+
+# Install in development mode
+pip install -e .
+```
+
+### Option 2: Direct Installation
+```bash
+# Install dependencies
 pip install -r requirements.txt
+
+# Or install with the package
+pip install .
 ```
 
-2) Run the enhanced modular pipeline (defaults: full viz + fine-tuning enabled):
+## Quick Start
 
+### Method 1: Command Line Interface
 ```bash
-python scripts/run_enhanced.py --data-path data/vehicle_comparison_dataset_030417.csv --output-dir output
+# Basic usage
+vehicle-efficiency data/vehicle_comparison_dataset_030417.csv
+
+# With custom options
+vehicle-efficiency data/vehicle_comparison_dataset_030417.csv \
+  --output-dir results \
+  --rank-by r2 \
+  --tuning-metric mae \
+  --search-method optuna
 ```
+
+### Method 2: Python Module
+```bash
+# Using the CLI module
+python -m vehicle_efficiency.cli data/vehicle_comparison_dataset_030417.csv --output-dir results
+
+# Using the main entry point
+python main.py  # (requires vehicle_efficiency_data.csv in current directory)
+```
+
+### Method 3: Python API
+```python
+from vehicle_efficiency import EnhancedPipeline
+
+# Create and run pipeline
+pipeline = EnhancedPipeline(
+    data_path="data/vehicle_comparison_dataset_030417.csv",
+    output_dir="results",
+    rank_by="r2",
+    enable_tuning=True,
+    full_viz=True
+)
+
+pipeline.run()
+```
+
+## Package Structure
+
+```
+src/vehicle_efficiency/
+├── __init__.py              # Main package exports
+├── cli.py                   # Command-line interface
+├── core/                    # Core pipeline components
+│   ├── __init__.py
+│   ├── pipeline.py          # Main pipeline orchestrator
+│   ├── training.py          # Model training and evaluation
+│   └── tuning.py           # Hyperparameter optimization
+├── data/                    # Data processing
+│   ├── __init__.py
+│   └── preprocessing.py     # Data loading and preprocessing
+├── features/                # Feature engineering
+│   ├── __init__.py
+│   ├── engineering.py       # Feature creation and transformation
+│   └── selection.py         # Feature selection algorithms
+├── models/                  # Model definitions
+│   ├── __init__.py
+│   └── model_registry.py    # Model registry and configurations
+└── utils/                   # Utilities
+    ├── __init__.py
+    ├── logging.py           # Logging configuration
+    ├── reporting.py         # Report generation
+    └── visualization.py     # Plotting and visualization
+```
+
+## Command Line Options
 
 Flags:
 - `--rank-by {r2|mae}`: Choose ranking metric (default r2).
@@ -52,24 +139,45 @@ Disable defaults if needed:
 - `--no-full-viz` to skip heavy plots
 - `--no-fine-tune-top2` to skip fine-tuning
 
-What’s New (Refactor Highlights)
-- Split the monolithic enhanced script into focused modules:
-  - `ve/data.py`: Loading, efficiency computation, outlier removal.
-  - `ve/features.py`: Feature engineering and selection (no leakage).
-  - `ve/models.py`: Model registry and tuning grids.
-  - `ve/training.py`: Training, CV, and rankings.
-  - `ve/viz.py`: Lightweight dashboards and CV stability plots.
-  - `ve/reporting.py`: Save artifacts and generate the final Markdown report.
-  - `ve/pipeline.py`: Orchestrator used by `scripts/run_enhanced.py`.
-- Added `--rank-by` option (R² or MAE) to better reflect your goals.
-- Added `--full-viz` to generate comprehensive dashboards and 15 individual plots.
-- Added `--fine-tune-top2` to tune best candidates (Optuna for boosting, sklearn for others) and fold them into rankings and the final report.
-- Recorded `sklearn_version` correctly for reproducibility.
-- Simplified preprocessing: scale/power-transform only for linear models; tree/boosting models use raw features.
+## What's New (Package Refactor)
 
-Legacy and Experiments
-- The original monolithic `enhanced_vehicle_efficiency_analysis.py` is now a thin wrapper over the modular pipeline. The baseline `vehicle_efficiency_analysis.py` remains for reference.
-- The `exps/` folder contains the earlier maintenance-cost and visualization experiments.
+The codebase has been completely restructured into a professional Python package:
+
+### Package Architecture
+- **Modular Design**: Split monolithic scripts into focused, reusable modules
+- **Standard Structure**: Follows Python packaging best practices with `src/` layout
+- **Clean Imports**: Proper package hierarchy with clear module boundaries
+- **CLI Interface**: Professional command-line interface with comprehensive options
+- **API Access**: Programmatic access to all functionality through clean APIs
+
+### Module Organization
+- **`src/vehicle_efficiency/core/`**: Pipeline orchestration, training, and hyperparameter tuning
+- **`src/vehicle_efficiency/data/`**: Data loading, preprocessing, and efficiency computation
+- **`src/vehicle_efficiency/features/`**: Feature engineering and selection (prevents data leakage)
+- **`src/vehicle_efficiency/models/`**: Model registry and hyperparameter search spaces
+- **`src/vehicle_efficiency/utils/`**: Logging, reporting, and visualization utilities
+
+### Enhanced Features
+- **Multiple Entry Points**: CLI (`vehicle-efficiency`), Python module, and programmatic API
+- **Flexible Configuration**: Comprehensive command-line options and Python API
+- **Professional Logging**: Structured logging with configurable levels
+- **Comprehensive Testing**: Import validation and end-to-end pipeline testing
+- **Modern Packaging**: `pyproject.toml`, `setup.py`, and proper dependency management
+
+
+
+## Legacy and Migration
+
+### Backward Compatibility
+- The original scripts (`enhanced_vehicle_efficiency_analysis.py`, `vehicle_efficiency_analysis.py`) remain available for reference
+- The `exps/` folder contains earlier maintenance-cost and visualization experiments
+- All functionality has been preserved and enhanced in the new package structure
+
+### Migration Guide
+- **Old CLI**: `python enhanced_vehicle_efficiency_analysis.py data.csv`
+- **New CLI**: `vehicle-efficiency data.csv` or `python -m vehicle_efficiency.cli data.csv`
+- **Old imports**: Direct script execution
+- **New imports**: `from vehicle_efficiency import EnhancedPipeline, load_and_prepare_data`
 
 Notes
 - Data leakage is prevented by excluding `mileage_km` and `energy_consumption` from the feature matrix when predicting `efficiency` (which is `mileage_km / energy_consumption`).

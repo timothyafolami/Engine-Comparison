@@ -1,0 +1,10 @@
+[
+  "normalized_cost",
+  "log_torque",
+  "emission_intensity",
+  "power_efficiency",
+  "maintenance_per_year",
+  "lifespan_years",
+  "maintenance_per_torque",
+  "cost_x_maintenance"
+]

@@ -1,0 +1,279 @@
+{
+  "original_features": [
+    "co2_emissions_g_per_km",
+    "cost_per_km",
+    "energy_storage_capacity",
+    "acceleration_0_100_kph_sec",
+    "torque_Nm",
+    "lifespan_years",
+    "maintenance_cost_annual"
+  ],
+  "engineered_features": [
+    "acceleration_category_num",
+    "acceleration_squared",
+    "cost_efficiency",
+    "cost_squared",
+    "cost_x_maintenance",
+    "eco_efficiency",
+    "emission_intensity",
+    "emission_per_storage",
+    "green_performance",
+    "lifespan_torque_ratio",
+    "log_maintenance",
+    "log_storage",
+    "log_torque",
+    "maintenance_per_torque",
+    "maintenance_per_year",
+    "normalized_cost",
+    "normalized_maintenance",
+    "normalized_torque",
+    "power_efficiency",
+    "storage_per_torque",
+    "storage_x_lifespan",
+    "torque_category_num",
+    "torque_squared",
+    "torque_x_lifespan"
+  ],
+  "ev_selected_features": [
+    "eco_efficiency",
+    "normalized_cost",
+    "acceleration_0_100_kph_sec",
+    "maintenance_per_year",
+    "torque_squared",
+    "lifespan_years",
+    "torque_x_lifespan"
+  ],
+  "ice_selected_features": [
+    "cost_x_maintenance",
+    "log_torque",
+    "maintenance_per_torque",
+    "normalized_cost",
+    "power_efficiency"
+  ],
+  "ev_results": {
+    "Linear Regression": {
+      "cv_mae_mean": 1934.0842880063524,
+      "cv_mae_std": 114.98218680025106,
+      "train_mae": 1904.6021581781342,
+      "train_r2": 0.011905237224129173,
+      "test_mae": 2034.7622276713612,
+      "test_rmse": 2535.745959292126,
+      "test_r2": -0.0056046546983863355,
+      "features_used": 7
+    },
+    "Ridge Regression": {
+      "cv_mae_mean": 1933.0527731242553,
+      "cv_mae_std": 114.59458113423898,
+      "train_mae": 1904.1467224240319,
+      "train_r2": 0.011800110722957835,
+      "test_mae": 2036.9653634715721,
+      "test_rmse": 2537.5356733137933,
+      "test_r2": -0.007024654890913862,
+      "features_used": 7
+    },
+    "Lasso Regression": {
+      "cv_mae_mean": 1933.7424529473021,
+      "cv_mae_std": 114.02695221880514,
+      "train_mae": 1904.085847938435,
+      "train_r2": 0.011803298450753896,
+      "test_mae": 2036.9468333910045,
+      "test_rmse": 2537.5048732716973,
+      "test_r2": -0.007000208957913978,
+      "features_used": 7
+    },
+    "Random Forest": {
+      "cv_mae_mean": 2026.0014103740607,
+      "cv_mae_std": 101.87642048585793,
+      "train_mae": 732.3797973602632,
+      "train_r2": 0.8558921788163574,
+      "test_mae": 2074.836389207632,
+      "test_rmse": 2570.1128115230645,
+      "test_r2": -0.03304719711878401,
+      "features_used": 7
+    },
+    "Gradient Boosting": {
+      "cv_mae_mean": 2024.032936117876,
+      "cv_mae_std": 85.3134371617958,
+      "train_mae": 1521.4390013629652,
+      "train_r2": 0.37741105448899714,
+      "test_mae": 1999.6559963557381,
+      "test_rmse": 2513.161665146034,
+      "test_r2": 0.012228153443355816,
+      "features_used": 7
+    },
+    "Decision Tree": {
+      "cv_mae_mean": 2466.5398968312484,
+      "cv_mae_std": 207.240950058639,
+      "train_mae": 1214.34910664613,
+      "train_r2": 0.4626527211782615,
+      "test_mae": 2388.0974327640074,
+      "test_rmse": 3092.8490695661535,
+      "test_r2": -0.4960056879983896,
+      "features_used": 7
+    },
+    "XGBoost": {
+      "cv_mae_mean": 2166.0068613547473,
+      "cv_mae_std": 137.40428497657953,
+      "train_mae": 102.77295222737251,
+      "train_r2": 0.9962515562055871,
+      "test_mae": 2204.8601120227627,
+      "test_rmse": 2713.022707117584,
+      "test_r2": -0.1511254296241431,
+      "features_used": 7
+    },
+    "CatBoost": {
+      "cv_mae_mean": 2076.6190266239328,
+      "cv_mae_std": 101.13315969158195,
+      "train_mae": 821.052562811878,
+      "train_r2": 0.8153378081371806,
+      "test_mae": 2185.10475397649,
+      "test_rmse": 2704.5261165433812,
+      "test_r2": -0.1439265764481683,
+      "features_used": 7
+    },
+    "LightGBM": {
+      "cv_mae_mean": 2185.2304799038675,
+      "cv_mae_std": 120.28560706743316,
+      "train_mae": 736.5019131677124,
+      "train_r2": 0.8538420758157838,
+      "test_mae": 2145.187347254933,
+      "test_rmse": 2697.976958577005,
+      "test_r2": -0.13839312276326887,
+      "features_used": 7
+    },
+    "Tuned Gradient Boosting": {
+      "train_mae": 1912.2142292436804,
+      "train_r2": 0.003161557980878027,
+      "test_mae": 2041.6019507455997,
+      "test_rmse": 2528.889851720467,
+      "test_r2": -0.00017413197632221156
+    },
+    "Tuned Linear Regression": {
+      "train_mae": 1904.6021581781342,
+      "train_r2": 0.011905237224129173,
+      "test_mae": 2034.7622276713612,
+      "test_rmse": 2535.745959292126,
+      "test_r2": -0.0056046546983863355
+    }
+  },
+  "ice_results": {
+    "Linear Regression": {
+      "cv_mae_mean": 5836.603765386675,
+      "cv_mae_std": 186.51684509236605,
+      "train_mae": 5800.270623202827,
+      "train_r2": 0.00740608833982459,
+      "test_mae": 5367.326176765296,
+      "test_rmse": 6698.190703556747,
+      "test_r2": -0.04937582223532999,
+      "features_used": 5
+    },
+    "Ridge Regression": {
+      "cv_mae_mean": 5834.843299820534,
+      "cv_mae_std": 184.52721080689085,
+      "train_mae": 5800.300974269609,
+      "train_r2": 0.00740589190826102,
+      "test_mae": 5367.07043881335,
+      "test_rmse": 6698.078244707583,
+      "test_r2": -0.049340585673142145,
+      "features_used": 5
+    },
+    "Lasso Regression": {
+      "cv_mae_mean": 5835.301896546896,
+      "cv_mae_std": 185.84426461238164,
+      "train_mae": 5800.24498724509,
+      "train_r2": 0.007405906222652248,
+      "test_mae": 5366.696576066677,
+      "test_rmse": 6697.759079443407,
+      "test_r2": -0.049240585322697816,
+      "features_used": 5
+    },
+    "Random Forest": {
+      "cv_mae_mean": 6230.079054547883,
+      "cv_mae_std": 306.89627647466085,
+      "train_mae": 2270.6658631716596,
+      "train_r2": 0.8489346752248121,
+      "test_mae": 5597.034799794565,
+      "test_rmse": 7116.574109846703,
+      "test_r2": -0.18456252782057825,
+      "features_used": 5
+    },
+    "Gradient Boosting": {
+      "cv_mae_mean": 6157.7732460564175,
+      "cv_mae_std": 353.67881561750096,
+      "train_mae": 4542.669315095587,
+      "train_r2": 0.3880640352568566,
+      "test_mae": 5661.851566558789,
+      "test_rmse": 7129.047246033467,
+      "test_r2": -0.18871850446653315,
+      "features_used": 5
+    },
+    "Decision Tree": {
+      "cv_mae_mean": 6888.0822145721995,
+      "cv_mae_std": 227.956721985614,
+      "train_mae": 3512.487687608855,
+      "train_r2": 0.5235583990376791,
+      "test_mae": 6125.747351304588,
+      "test_rmse": 8005.718103742065,
+      "test_r2": -0.4990517472166114,
+      "features_used": 5
+    },
+    "XGBoost": {
+      "cv_mae_mean": 6885.776490802518,
+      "cv_mae_std": 334.26978159350824,
+      "train_mae": 425.41077866210816,
+      "train_r2": 0.9928608591396941,
+      "test_mae": 6080.8299387862435,
+      "test_rmse": 7744.520518079831,
+      "test_r2": -0.4028302005047819,
+      "features_used": 5
+    },
+    "CatBoost": {
+      "cv_mae_mean": 6376.821707306675,
+      "cv_mae_std": 311.0111459825889,
+      "train_mae": 2864.542960184535,
+      "train_r2": 0.7536311368176013,
+      "test_mae": 5885.404017436656,
+      "test_rmse": 7383.218998994573,
+      "test_r2": -0.2749922313207007,
+      "features_used": 5
+    },
+    "LightGBM": {
+      "cv_mae_mean": 6675.805816648157,
+      "cv_mae_std": 241.79190980292103,
+      "train_mae": 2806.401171071521,
+      "train_r2": 0.7579518764056873,
+      "test_mae": 6015.817793238518,
+      "test_rmse": 7521.066296269761,
+      "test_r2": -0.32304577811477886,
+      "features_used": 5
+    },
+    "Tuned Lasso Regression": {
+      "train_mae": 5802.497000704665,
+      "train_r2": 0.006986145422676282,
+      "test_mae": 5345.98225968167,
+      "test_rmse": 6676.585662670717,
+      "test_r2": -0.042617207993647765
+    },
+    "Tuned Ridge Regression": {
+      "train_mae": 5803.903076049182,
+      "train_r2": 0.006577568012926971,
+      "test_mae": 5343.682136959252,
+      "test_rmse": 6663.888998029606,
+      "test_r2": -0.03865555011081545
+    }
+  },
+  "best_ev_model": "Gradient Boosting",
+  "best_ice_model": "Tuned Ridge Regression",
+  "system_specs": {
+    "python_version": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 08:22:19) [Clang 14.0.6 ]",
+    "numpy_version": "1.26.4",
+    "pandas_version": "2.3.2",
+    "sklearn_version": "1.4.1.post1"
+  },
+  "performance_summary": {
+    "best_ev_r2": 0.012228153443355816,
+    "best_ice_r2": -0.03865555011081545,
+    "ev_features_count": 7,
+    "ice_features_count": 5
+  }
+}
