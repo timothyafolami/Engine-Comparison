@@ -154,7 +154,7 @@
     "verbose": -1
   },
   "Tuned Ridge Regression": {
-    "alpha": 0.17012542798525893,
+    "alpha": 0.0001,
     "copy_X": true,
     "fit_intercept": true,
     "max_iter": null,
@@ -164,15 +164,15 @@
     "tol": 0.0001
   },
   "Tuned Lasso Regression": {
-    "alpha": 3.07029062975785,
+    "alpha": 16.03718743751331,
     "copy_X": true,
     "fit_intercept": true,
-    "max_iter": 5000,
+    "max_iter": 2000,
     "positive": false,
     "precompute": false,
     "random_state": null,
     "selection": "cyclic",
-    "tol": 0.001,
+    "tol": 0.0001,
     "warm_start": false
   }
 }

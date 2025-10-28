@@ -4,33 +4,33 @@
 
 - EV: Gradient Boosting (Test R²: 0.0122)
 
-- ICE: Tuned Ridge Regression (Test R²: -0.0387)
+- ICE: Tuned Ridge Regression (Test R²: -0.0385)
 
 ## EV Model Rankings (Top 5)
 
 | Unnamed: 0              |   cv_mae_mean |   cv_mae_std |   train_mae |   train_r2 |   test_mae |   test_rmse |      test_r2 |   features_used |
 |:------------------------|--------------:|-------------:|------------:|-----------:|-----------:|------------:|-------------:|----------------:|
 | Gradient Boosting       |       2024.03 |      85.3134 |     1521.44 | 0.377411   |    1999.66 |     2513.16 |  0.0122282   |               7 |
-| Tuned Gradient Boosting |        nan    |     nan      |     1912.21 | 0.00316156 |    2041.6  |     2528.89 | -0.000174132 |             nan |
-| Linear Regression       |       1934.08 |     114.982  |     1904.6  | 0.0119052  |    2034.76 |     2535.75 | -0.00560465  |               7 |
-| Tuned Linear Regression |        nan    |     nan      |     1904.6  | 0.0119052  |    2034.76 |     2535.75 | -0.00560465  |             nan |
-| Lasso Regression        |       1933.74 |     114.027  |     1904.09 | 0.0118033  |    2036.95 |     2537.5  | -0.00700021  |               7 |
+| Tuned Gradient Boosting |        nan    |     nan      |     1912.38 | 0.00290024 |    2041.71 |     2528.94 | -0.000212273 |             nan |
+| Linear Regression       |       1929.34 |     117.005  |     1901.3  | 0.0139322  |    2032.01 |     2533.47 | -0.00380048  |               7 |
+| Tuned Linear Regression |        nan    |     nan      |     1901.3  | 0.0139322  |    2032.01 |     2533.47 | -0.00380048  |             nan |
+| Lasso Regression        |       1927.75 |     114      |     1901.61 | 0.0119791  |    2040.52 |     2540.78 | -0.00960417  |               7 |
 
 ## ICE Model Rankings (Top 5)
 
 | Unnamed: 0             |   cv_mae_mean |   cv_mae_std |   train_mae |   train_r2 |   test_mae |   test_rmse |    test_r2 |   features_used |
 |:-----------------------|--------------:|-------------:|------------:|-----------:|-----------:|------------:|-----------:|----------------:|
-| Tuned Ridge Regression |        nan    |      nan     |     5803.9  | 0.00657757 |    5343.68 |     6663.89 | -0.0386556 |             nan |
-| Tuned Lasso Regression |        nan    |      nan     |     5802.5  | 0.00698615 |    5345.98 |     6676.59 | -0.0426172 |             nan |
-| Lasso Regression       |       5835.3  |      185.844 |     5800.24 | 0.00740591 |    5366.7  |     6697.76 | -0.0492406 |               5 |
-| Ridge Regression       |       5834.84 |      184.527 |     5800.3  | 0.00740589 |    5367.07 |     6698.08 | -0.0493406 |               5 |
-| Linear Regression      |       5836.6  |      186.517 |     5800.27 | 0.00740609 |    5367.33 |     6698.19 | -0.0493758 |               5 |
+| Tuned Ridge Regression |        nan    |      nan     |     5804.24 | 0.00649822 |    5344.12 |     6663.47 | -0.0385241 |             nan |
+| Tuned Lasso Regression |        nan    |      nan     |     5804.39 | 0.00680463 |    5344.44 |     6670.6  | -0.0407473 |             nan |
+| Ridge Regression       |       5832.42 |      178.317 |     5800.14 | 0.00807258 |    5377.61 |     6711.42 | -0.0535248 |               5 |
+| Lasso Regression       |       5845.41 |      178.298 |     5800.5  | 0.00819108 |    5380.95 |     6714.56 | -0.054512  |               5 |
+| Linear Regression      |       5853.39 |      179.95  |     5801.08 | 0.00827657 |    5382.16 |     6716.56 | -0.0551404 |               5 |
 
 ## Tuned vs Base – ICE
 
-- Base: Ridge Regression — MAE 5367.07, R² -0.0493
-- Tuned: Tuned Ridge Regression — MAE 5343.68, R² -0.0387
-- Improvement: ΔMAE +23.39 (lower is better), ΔR² +0.0107
+- Base: Ridge Regression — MAE 5377.61, R² -0.0535
+- Tuned: Tuned Ridge Regression — MAE 5344.12, R² -0.0385
+- Improvement: ΔMAE +33.49 (lower is better), ΔR² +0.0150
 
 ## Tuned Hyperparameters (Selected)
 
@@ -65,7 +65,7 @@
 
 ```json
 {
-  "alpha": 661.4740641230146,
+  "alpha": 24.244620170823307,
   "copy_X": true,
   "fit_intercept": true,
   "max_iter": null,

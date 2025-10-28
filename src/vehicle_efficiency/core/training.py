@@ -9,7 +9,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import KFold, RandomizedSearchCV, cross_val_score, train_test_split
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import PowerTransformer
+from sklearn.preprocessing import PowerTransformer, MinMaxScaler
 from loguru import logger
 
 
@@ -21,13 +21,18 @@ class TrainResults:
     y_test: pd.Series
 
 
-def _preprocessor_for_model(selected_features: List[str], model_name: str) -> ColumnTransformer | str:
-    """Use PowerTransformer for linear models; passthrough for tree/boosting models."""
+def _preprocessor_for_model(selected_features: List[str], model_name: str, scaler_type: str = "minmax") -> ColumnTransformer | str:
+    """Use MinMaxScaler for linear models; passthrough for tree/boosting models."""
     linear_like = {"Linear Regression", "Ridge Regression", "Lasso Regression"}
     if model_name in linear_like:
-        return ColumnTransformer([
-            ("scaler", PowerTransformer(method="yeo-johnson"), selected_features)
-        ])
+        if scaler_type == "minmax":
+            return ColumnTransformer([
+                ("scaler", MinMaxScaler(), selected_features)
+            ])
+        else:  # fallback to PowerTransformer if specified
+            return ColumnTransformer([
+                ("scaler", PowerTransformer(method="yeo-johnson"), selected_features)
+            ])
     # Passthrough keeps columns unchanged
     return "passthrough"
 
@@ -38,6 +43,7 @@ def train_models_for_vehicle_type(
     models: Dict[str, object],
     search_spaces: Dict[str, dict] | None = None,
     random_search_iter: int = 30,
+    scaler_type: str = "minmax",
 ) -> TrainResults:
     """Train/tune models for a specific dataset with selected features."""
     X = data[selected_features].fillna(data[selected_features].median())
@@ -53,7 +59,7 @@ def train_models_for_vehicle_type(
 
     for name, model in models.items():
         logger.info("Training model '{}'", name)
-        preprocessor = _preprocessor_for_model(selected_features, name)
+        preprocessor = _preprocessor_for_model(selected_features, name, scaler_type)
         pipe = Pipeline([
             ("preprocessor", preprocessor),
             ("model", model),

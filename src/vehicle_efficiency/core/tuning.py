@@ -8,7 +8,7 @@ import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import KFold, GridSearchCV, RandomizedSearchCV, train_test_split, cross_val_score
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import PowerTransformer
+from sklearn.preprocessing import PowerTransformer, MinMaxScaler
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from loguru import logger
 
@@ -20,11 +20,16 @@ LINEAR_MODELS = {"Linear Regression", "Ridge Regression", "Lasso Regression"}
 BOOSTING_MODELS = {"Gradient Boosting", "XGBoost", "LightGBM", "CatBoost"}
 
 
-def _preprocessor_for_model(selected_features: List[str], model_name: str) -> ColumnTransformer | str:
+def _preprocessor_for_model(selected_features: List[str], model_name: str, scaler_type: str = "minmax") -> ColumnTransformer | str:
     if model_name in LINEAR_MODELS:
-        return ColumnTransformer([
-            ("scaler", PowerTransformer(method="yeo-johnson"), selected_features)
-        ])
+        if scaler_type == "minmax":
+            return ColumnTransformer([
+                ("scaler", MinMaxScaler(), selected_features)
+            ])
+        else:  # fallback to PowerTransformer if specified
+            return ColumnTransformer([
+                ("scaler", PowerTransformer(method="yeo-johnson"), selected_features)
+            ])
     return "passthrough"
 
 

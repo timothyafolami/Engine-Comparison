@@ -4,25 +4,25 @@
 
 - EV: Gradient Boosting (Test R²: 0.0122)
 
-- ICE: Ridge Regression (Test R²: -0.0276)
+- ICE: Lasso Regression (Test R²: -0.0149)
 
 ## EV Model Rankings (Top 5)
 
 | Unnamed: 0        |   cv_mae_mean |   cv_mae_std |   train_mae |   train_r2 |   test_mae |   test_rmse |     test_r2 |   features_used |
 |:------------------|--------------:|-------------:|------------:|-----------:|-----------:|------------:|------------:|----------------:|
 | Gradient Boosting |       2024.03 |      85.3134 |     1521.44 |  0.377411  |    1999.66 |     2513.16 |  0.0122282  |               7 |
-| Linear Regression |       1934.08 |     114.982  |     1904.6  |  0.0119052 |    2034.76 |     2535.75 | -0.00560465 |               7 |
-| Lasso Regression  |       1933.74 |     114.027  |     1904.09 |  0.0118033 |    2036.95 |     2537.5  | -0.00700021 |               7 |
-| Ridge Regression  |       1933.05 |     114.595  |     1904.15 |  0.0118001 |    2036.97 |     2537.54 | -0.00702465 |               7 |
+| Linear Regression |       1929.34 |     117.005  |     1901.3  |  0.0139322 |    2032.01 |     2533.47 | -0.00380048 |               7 |
+| Lasso Regression  |       1927.75 |     114      |     1901.61 |  0.0119791 |    2040.52 |     2540.78 | -0.00960417 |               7 |
+| Ridge Regression  |       1927.23 |     114.427  |     1902.04 |  0.0106547 |    2041.99 |     2541.69 | -0.0103225  |               7 |
 | Random Forest     |       2026    |     101.876  |      732.38 |  0.855892  |    2074.84 |     2570.11 | -0.0330472  |               7 |
 
 ## ICE Model Rankings (Top 5)
 
 | Unnamed: 0        |   cv_mae_mean |   cv_mae_std |   train_mae |   train_r2 |   test_mae |   test_rmse |    test_r2 |   features_used |
 |:------------------|--------------:|-------------:|------------:|-----------:|-----------:|------------:|-----------:|----------------:|
-| Ridge Regression  |       6123.49 |      156.448 |     6046.08 |  0.0136384 |    5455.99 |     7007.49 | -0.0276022 |               9 |
-| Lasso Regression  |       6127.57 |      158.305 |     6046.16 |  0.0136601 |    5458.34 |     7009.86 | -0.0282974 |               9 |
-| Linear Regression |       6128.29 |      159.962 |     6046.26 |  0.0136677 |    5460.04 |     7011.96 | -0.0289147 |               9 |
+| Lasso Regression  |       6109.23 |      135.944 |     6043.85 |  0.0110814 |    5403.48 |     6964.13 | -0.0149252 |               9 |
+| Linear Regression |       6107.8  |      134.842 |     6041.12 |  0.0111975 |    5404.68 |     6964.18 | -0.0149405 |               9 |
+| Ridge Regression  |       6105.11 |      140.413 |     6047.26 |  0.010637  |    5406.81 |     6964.93 | -0.0151577 |               9 |
 | Random Forest     |       6445.61 |      211.908 |     2349.36 |  0.848063  |    5714.99 |     7306.76 | -0.117248  |               9 |
 | Gradient Boosting |       6453.23 |      231.559 |     4540.39 |  0.489627  |    5878.49 |     7327.27 | -0.123529  |               9 |
 
@@ -55,18 +55,20 @@
   "warm_start": false
 }
 ```
-### ICE – Ridge Regression
+### ICE – Lasso Regression
 
 ```json
 {
   "alpha": 1.0,
   "copy_X": true,
   "fit_intercept": true,
-  "max_iter": null,
+  "max_iter": 10000,
   "positive": false,
+  "precompute": false,
   "random_state": null,
-  "solver": "auto",
-  "tol": 0.0001
+  "selection": "cyclic",
+  "tol": 0.0001,
+  "warm_start": false
 }
 ```
 ## System Specs

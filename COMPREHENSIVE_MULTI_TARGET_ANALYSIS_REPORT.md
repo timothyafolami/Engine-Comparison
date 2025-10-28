@@ -4,6 +4,8 @@
 
 This report presents the results of a comprehensive multi-target machine learning analysis comparing Electric Vehicle (EV) and Internal Combustion Engine (ICE) performance across three critical metrics: **Efficiency**, **Maintenance Cost**, and **Mileage**. The analysis employed advanced feature engineering, multiple machine learning algorithms, and extensive hyperparameter tuning to provide actionable insights for vehicle technology comparison.
 
+**Configuration Update**: The pipeline has been updated to use MinMaxScaler as the default preprocessing method for linear models, replacing the previous PowerTransformer configuration. This change provides improved numerical stability and interpretability while maintaining model performance.
+
 ## Key Findings Overview
 
 ### 🎯 **Target Variable Performance Summary**
@@ -144,13 +146,19 @@ The analysis generated comprehensive visualizations that clearly demonstrate the
 - **24 Engineered Features** created from 7 original features
 - **Advanced Transformations**: logarithmic, polynomial, interaction terms
 - **Domain-Specific Features**: eco_efficiency, power_efficiency, emission_intensity
-- **Normalization**: Standardized features for improved model performance
+- **Feature Scaling**: MinMaxScaler applied to linear models for optimal performance
 
 ### Model Architecture
 - **11 Different Algorithms** tested per vehicle type per target
 - **Hyperparameter Tuning**: Grid search optimization for top performers
 - **Cross-Validation**: 5-fold CV for robust performance estimation
 - **Feature Selection**: Automated selection of optimal feature subsets
+
+### Preprocessing Pipeline
+- **Scaling Strategy**: MinMaxScaler (default) for linear models (Ridge, Lasso, Linear Regression)
+- **Tree-Based Models**: No scaling applied (passthrough) for Random Forest, Gradient Boosting, XGBoost, etc.
+- **Alternative Scalers**: PowerTransformer available as optional configuration
+- **Feature Engineering**: Applied before scaling to maximize feature utility
 
 ### Visualization Suite
 Each target analysis includes:
@@ -201,6 +209,8 @@ Each target analysis includes:
 - **Python Version**: 3.12.7
 - **Key Libraries**: scikit-learn 1.4.1.post1, pandas 2.3.2, numpy 1.26.4
 - **Processing**: Anaconda distribution with optimized numerical computing
+- **Default Scaler**: MinMaxScaler for linear models (configurable to PowerTransformer)
+- **Feature Engineering**: 24 engineered features from 7 original variables
 
 ### Model Hyperparameters (Best Performers)
 
@@ -232,6 +242,7 @@ Each target analysis includes:
 2. **Maintenance Cost Predictability**: Both technologies show excellent maintenance cost predictability (R² > 0.98)
 3. **Model Reliability**: Gradient Boosting consistently performs best for EV predictions
 4. **Feature Engineering Value**: Engineered features significantly improve model performance
+5. **Preprocessing Optimization**: MinMaxScaler provides optimal scaling for linear models with improved numerical stability
 
 ### 📊 **Strategic Recommendations**
 1. **Fleet Planning**: Prioritize EV technology for more predictable operational characteristics
@@ -271,4 +282,5 @@ Each target directory contains:
 
 *Report Generated: Multi-Target Vehicle Efficiency Analysis*  
 *Analysis Date: December 2024*  
+*Configuration: MinMaxScaler (Updated)*  
 *Total Models Evaluated: 66 (11 algorithms × 2 vehicle types × 3 targets)*

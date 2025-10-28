@@ -1,339 +1,339 @@
-2025-10-28 17:17:01 | INFO     | __main__:main:128 - Starting Vehicle Efficiency Analysis Pipeline
-2025-10-28 17:17:01 | INFO     | __main__:main:129 - Input data: data/vehicle_comparison_dataset_030417.csv
-2025-10-28 17:17:01 | INFO     | __main__:main:130 - Output directory: output
-2025-10-28 17:17:01 | INFO     | __main__:main:131 - Multi-target analysis: True
-2025-10-28 17:17:01 | INFO     | __main__:main:132 - Ranking metric: r2
-2025-10-28 17:17:01 | INFO     | __main__:main:133 - Tuning enabled: True
-2025-10-28 17:17:01 | INFO     | __main__:main:134 - Advanced visualizations: True
-2025-10-28 17:17:01 | INFO     | __main__:main:135 - Fine-tuning enabled: True
-2025-10-28 17:17:01 | INFO     | src.vehicle_efficiency.core.pipeline:run:250 - Starting multi-target analysis for 3 targets
-2025-10-28 17:17:01 | INFO     | src.vehicle_efficiency.core.pipeline:run:255 - ============================================================
-2025-10-28 17:17:01 | INFO     | src.vehicle_efficiency.core.pipeline:run:256 - ANALYZING TARGET: MAINTENANCE_COST (maintenance_cost_annual)
-2025-10-28 17:17:01 | INFO     | src.vehicle_efficiency.core.pipeline:run:257 - ============================================================
-2025-10-28 17:17:01 | INFO     | src.vehicle_efficiency.core.pipeline:run:68 - Starting enhanced pipeline run | data_path='data/vehicle_comparison_dataset_030417.csv' | rank_by='r2' | enable_viz=True | enable_fine_tuning=True | enable_tuning=True
-2025-10-28 17:17:01 | INFO     | src.vehicle_efficiency.core.pipeline:run:70 - Loading and preparing data from 'data/vehicle_comparison_dataset_030417.csv' for target 'maintenance_cost_annual'
-2025-10-28 17:17:01 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:81 - Loading data from 'data/vehicle_comparison_dataset_030417.csv' for target variable 'maintenance_cost_annual'
-2025-10-28 17:17:01 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:83 - Loaded dataframe with shape (2000, 10)
-2025-10-28 17:17:01 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:99 - Removed outliers by maintenance_cost_annual | kept 1998 of 2000 rows (-2 removed)
-2025-10-28 17:17:01 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:111 - Split datasets for maintenance_cost_annual | EV shape (1000, 10) | ICE shape (998, 10)
-2025-10-28 17:17:01 | INFO     | src.vehicle_efficiency.core.pipeline:run:74 - Engineering features for EV and ICE cohorts
-2025-10-28 17:17:01 | INFO     | src.vehicle_efficiency.features.engineering:engineer_features:90 - Engineered 22 features (excluding originals & target)
-2025-10-28 17:17:01 | INFO     | src.vehicle_efficiency.features.engineering:engineer_features:90 - Engineered 22 features (excluding originals & target)
-2025-10-28 17:17:01 | INFO     | src.vehicle_efficiency.core.pipeline:run:81 - Selecting features per cohort
-2025-10-28 17:17:01 | INFO     | src.vehicle_efficiency.features.selection:select_features:56 - Selected 7 features for 'ELECTRIC VEHICLES' cohort
-2025-10-28 17:17:01 | INFO     | src.vehicle_efficiency.features.selection:select_features:56 - Selected 8 features for 'ICE VEHICLES' cohort
-2025-10-28 17:17:01 | INFO     | src.vehicle_efficiency.core.pipeline:run:84 - Selected features | EV=7 | ICE=8
-2025-10-28 17:17:02 | INFO     | src.vehicle_efficiency.core.pipeline:run:91 - Training models for EV cohort
-2025-10-28 17:17:02 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
-2025-10-28 17:17:08 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 1934.08±114.98 | Test MAE 2034.76 | Test R² -0.0056
-2025-10-28 17:17:08 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
-2025-10-28 17:17:09 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 1933.05±114.59 | Test MAE 2036.97 | Test R² -0.0070
-2025-10-28 17:17:09 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
-2025-10-28 17:17:09 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 1933.74±114.03 | Test MAE 2036.95 | Test R² -0.0070
-2025-10-28 17:17:09 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
-2025-10-28 17:17:12 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 2026.00±101.88 | Test MAE 2074.84 | Test R² -0.0330
-2025-10-28 17:17:12 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
-2025-10-28 17:17:12 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 2024.03±85.31 | Test MAE 1999.66 | Test R² 0.0122
-2025-10-28 17:17:12 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
-2025-10-28 17:17:13 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 2466.54±207.24 | Test MAE 2388.10 | Test R² -0.4960
-2025-10-28 17:17:13 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
-2025-10-28 17:17:13 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 2166.01±137.40 | Test MAE 2204.86 | Test R² -0.1511
-2025-10-28 17:17:13 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
-2025-10-28 17:17:17 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 2076.62±101.13 | Test MAE 2185.10 | Test R² -0.1439
-2025-10-28 17:17:17 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
-2025-10-28 17:17:20 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 2185.23±120.29 | Test MAE 2145.19 | Test R² -0.1384
-2025-10-28 17:17:20 | INFO     | src.vehicle_efficiency.core.pipeline:run:93 - Training models for ICE cohort
-2025-10-28 17:17:20 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
-2025-10-28 17:17:20 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 6088.83±232.25 | Test MAE 6426.30 | Test R² -0.0195
-2025-10-28 17:17:20 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
-2025-10-28 17:17:20 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 6085.66±235.89 | Test MAE 6420.14 | Test R² -0.0185
-2025-10-28 17:17:20 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
-2025-10-28 17:17:20 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 6088.07±233.27 | Test MAE 6423.76 | Test R² -0.0191
-2025-10-28 17:17:20 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
-2025-10-28 17:17:22 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 6434.67±329.42 | Test MAE 6580.57 | Test R² -0.0758
-2025-10-28 17:17:22 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
-2025-10-28 17:17:22 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 6535.90±400.74 | Test MAE 6569.18 | Test R² -0.0659
-2025-10-28 17:17:22 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
-2025-10-28 17:17:22 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 7226.20±596.80 | Test MAE 8213.23 | Test R² -0.6334
-2025-10-28 17:17:22 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
-2025-10-28 17:17:23 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 7060.55±200.42 | Test MAE 7277.88 | Test R² -0.2912
-2025-10-28 17:17:23 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
-2025-10-28 17:17:27 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 6765.83±310.09 | Test MAE 6711.89 | Test R² -0.0901
-2025-10-28 17:17:27 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
-2025-10-28 17:17:30 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 7041.71±316.94 | Test MAE 7166.75 | Test R² -0.2372
-2025-10-28 17:17:30 | INFO     | src.vehicle_efficiency.core.pipeline:run:116 - Fine-tuning top-2 for EV cohort | metric='mae'
-2025-10-28 17:17:30 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:238 - Ranking base models to select top-2 for fine-tuning | rank_by='r2'
-2025-10-28 17:17:30 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
-2025-10-28 17:17:30 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 1934.08±114.98 | Test MAE 2034.76 | Test R² -0.0056
-2025-10-28 17:17:30 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
-2025-10-28 17:17:30 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 1933.05±114.59 | Test MAE 2036.97 | Test R² -0.0070
-2025-10-28 17:17:30 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
-2025-10-28 17:17:30 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 1933.74±114.03 | Test MAE 2036.95 | Test R² -0.0070
-2025-10-28 17:17:30 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
-2025-10-28 17:17:31 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 2026.00±101.88 | Test MAE 2074.84 | Test R² -0.0330
-2025-10-28 17:17:31 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
-2025-10-28 17:17:32 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 2024.03±85.31 | Test MAE 1999.66 | Test R² 0.0122
-2025-10-28 17:17:32 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
-2025-10-28 17:17:32 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 2466.54±207.24 | Test MAE 2388.10 | Test R² -0.4960
-2025-10-28 17:17:32 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
-2025-10-28 17:17:32 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 2166.01±137.40 | Test MAE 2204.86 | Test R² -0.1511
-2025-10-28 17:17:32 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
-2025-10-28 17:17:35 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 2076.62±101.13 | Test MAE 2185.10 | Test R² -0.1439
-2025-10-28 17:17:35 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
-2025-10-28 17:17:37 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 2185.23±120.29 | Test MAE 2145.19 | Test R² -0.1384
-2025-10-28 17:17:37 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:243 - Selected top-2 for tuning: ['Gradient Boosting', 'Linear Regression']
-2025-10-28 17:17:37 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:253 - Tuning 'Gradient Boosting' with Optuna (if available) | metric='mae' | trials=50
-2025-10-28 17:19:39 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:274 - Tuned 'Gradient Boosting' | Test MAE 544.11 | Test R² 0.9929
-2025-10-28 17:19:39 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:260 - Tuning 'Linear Regression' with sklearn 'random' search | metric='mae'
-2025-10-28 17:19:39 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:274 - Tuned 'Linear Regression' | Test MAE 1086.15 | Test R² 0.9680
-2025-10-28 17:19:39 | INFO     | src.vehicle_efficiency.core.pipeline:run:118 - Fine-tuning top-2 for ICE cohort | metric='mae'
-2025-10-28 17:19:39 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:238 - Ranking base models to select top-2 for fine-tuning | rank_by='r2'
-2025-10-28 17:19:39 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
-2025-10-28 17:19:39 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 6088.83±232.25 | Test MAE 6426.30 | Test R² -0.0195
-2025-10-28 17:19:39 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
-2025-10-28 17:19:39 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 6085.66±235.89 | Test MAE 6420.14 | Test R² -0.0185
-2025-10-28 17:19:39 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
-2025-10-28 17:19:39 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 6088.07±233.27 | Test MAE 6423.76 | Test R² -0.0191
-2025-10-28 17:19:39 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
-2025-10-28 17:19:40 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 6434.67±329.42 | Test MAE 6580.57 | Test R² -0.0758
-2025-10-28 17:19:40 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
-2025-10-28 17:19:41 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 6535.90±400.74 | Test MAE 6569.18 | Test R² -0.0659
-2025-10-28 17:19:41 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
-2025-10-28 17:19:41 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 7226.20±596.80 | Test MAE 8213.23 | Test R² -0.6334
-2025-10-28 17:19:41 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
-2025-10-28 17:19:41 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 7060.55±200.42 | Test MAE 7277.88 | Test R² -0.2912
-2025-10-28 17:19:41 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
-2025-10-28 17:19:45 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 6765.83±310.09 | Test MAE 6711.89 | Test R² -0.0901
-2025-10-28 17:19:45 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
-2025-10-28 17:19:47 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 7041.71±316.94 | Test MAE 7166.75 | Test R² -0.2372
-2025-10-28 17:19:47 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:243 - Selected top-2 for tuning: ['Ridge Regression', 'Lasso Regression']
-2025-10-28 17:19:47 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:260 - Tuning 'Ridge Regression' with sklearn 'random' search | metric='mae'
-2025-10-28 17:19:48 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:274 - Tuned 'Ridge Regression' | Test MAE 1275.63 | Test R² 0.9804
-2025-10-28 17:19:48 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:260 - Tuning 'Lasso Regression' with sklearn 'random' search | metric='mae'
-2025-10-28 17:19:49 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:274 - Tuned 'Lasso Regression' | Test MAE 1279.20 | Test R² 0.9804
-2025-10-28 17:19:49 | INFO     | src.vehicle_efficiency.core.pipeline:run:126 - Best models | EV='Tuned Gradient Boosting' (test_r2=0.9929) | ICE='Tuned Ridge Regression' (test_r2=0.9804)
-2025-10-28 17:19:49 | INFO     | src.vehicle_efficiency.utils.reporting:save_core_artifacts:32 - Saving rankings and results artifacts to output/maintenance_cost
-2025-10-28 17:19:49 | INFO     | src.vehicle_efficiency.utils.reporting:write_final_report_markdown:163 - Report written to output/maintenance_cost/final_modeling_report.md
-2025-10-28 17:19:49 | INFO     | src.vehicle_efficiency.core.pipeline:run:158 - Final report written to output/maintenance_cost/final_modeling_report.md
-2025-10-28 17:19:49 | INFO     | src.vehicle_efficiency.utils.visualization:simple_dashboard:62 - Saving simple dashboard to output/maintenance_cost/enhanced_efficiency_dashboard.png
-2025-10-28 17:19:51 | INFO     | src.vehicle_efficiency.utils.visualization:cv_stability_plots:13 - Saving CV stability plots to output/maintenance_cost
-2025-10-28 17:19:52 | INFO     | src.vehicle_efficiency.core.pipeline:run:167 - Generating advanced visualizations (individual plots and dashboards)
-2025-10-28 17:19:52 | INFO     | src.vehicle_efficiency.utils.visualization:advanced_viz:607 - Generating advanced visualizations into output/maintenance_cost
-2025-10-28 17:19:52 | INFO     | src.vehicle_efficiency.utils.visualization:individual_plots:226 - Saving individual plots to output/maintenance_cost/individual_plots
-2025-10-28 17:20:02 | INFO     | src.vehicle_efficiency.utils.visualization:correlation_analysis_dashboard:433 - Saving correlation analysis dashboard to output/maintenance_cost/correlation_analysis_dashboard.png
-2025-10-28 17:20:04 | INFO     | src.vehicle_efficiency.utils.visualization:detailed_correlation_matrices:543 - Saving detailed correlation matrices to output/maintenance_cost/detailed_correlation_matrices.png
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:294 - 📊 PERFORMANCE SUMMARY FOR TARGET: MAINTENANCE_COST
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:311 - 🔋 Best EV Model: Tuned Gradient Boosting | R²=0.9929 | MAE=544.1061
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:327 - ⛽ Best ICE Model: Tuned Ridge Regression | R²=0.9804 | MAE=1275.6299
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:332 - 📁 Output Directory: output/maintenance_cost
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:333 - 
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.pipeline:run:284 - Completed analysis for target 'maintenance_cost' | output_dir='output/maintenance_cost'
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.pipeline:run:255 - ============================================================
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.pipeline:run:256 - ANALYZING TARGET: EFFICIENCY (efficiency)
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.pipeline:run:257 - ============================================================
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.pipeline:run:68 - Starting enhanced pipeline run | data_path='data/vehicle_comparison_dataset_030417.csv' | rank_by='r2' | enable_viz=True | enable_fine_tuning=True | enable_tuning=True
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.pipeline:run:70 - Loading and preparing data from 'data/vehicle_comparison_dataset_030417.csv' for target 'efficiency'
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:81 - Loading data from 'data/vehicle_comparison_dataset_030417.csv' for target variable 'efficiency'
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:83 - Loaded dataframe with shape (2000, 10)
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:99 - Removed outliers by efficiency | kept 1983 of 2000 rows (-17 removed)
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:111 - Split datasets for efficiency | EV shape (1000, 10) | ICE shape (983, 10)
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.pipeline:run:74 - Engineering features for EV and ICE cohorts
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.features.engineering:engineer_features:90 - Engineered 22 features (excluding originals & target)
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.features.engineering:engineer_features:90 - Engineered 22 features (excluding originals & target)
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.pipeline:run:81 - Selecting features per cohort
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.features.selection:select_features:56 - Selected 7 features for 'ELECTRIC VEHICLES' cohort
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.features.selection:select_features:56 - Selected 5 features for 'ICE VEHICLES' cohort
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.pipeline:run:84 - Selected features | EV=7 | ICE=5
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.pipeline:run:91 - Training models for EV cohort
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 1934.08±114.98 | Test MAE 2034.76 | Test R² -0.0056
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 1933.05±114.59 | Test MAE 2036.97 | Test R² -0.0070
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 1933.74±114.03 | Test MAE 2036.95 | Test R² -0.0070
-2025-10-28 17:20:06 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
-2025-10-28 17:20:08 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 2026.00±101.88 | Test MAE 2074.84 | Test R² -0.0330
-2025-10-28 17:20:08 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
-2025-10-28 17:20:08 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 2024.03±85.31 | Test MAE 1999.66 | Test R² 0.0122
-2025-10-28 17:20:08 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
-2025-10-28 17:20:08 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 2466.54±207.24 | Test MAE 2388.10 | Test R² -0.4960
-2025-10-28 17:20:08 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
-2025-10-28 17:20:09 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 2166.01±137.40 | Test MAE 2204.86 | Test R² -0.1511
-2025-10-28 17:20:09 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
-2025-10-28 17:20:12 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 2076.62±101.13 | Test MAE 2185.10 | Test R² -0.1439
-2025-10-28 17:20:12 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
-2025-10-28 17:20:13 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 2185.23±120.29 | Test MAE 2145.19 | Test R² -0.1384
-2025-10-28 17:20:13 | INFO     | src.vehicle_efficiency.core.pipeline:run:93 - Training models for ICE cohort
-2025-10-28 17:20:13 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
-2025-10-28 17:20:13 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 5836.60±186.52 | Test MAE 5367.33 | Test R² -0.0494
-2025-10-28 17:20:13 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
-2025-10-28 17:20:13 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 5834.84±184.53 | Test MAE 5367.07 | Test R² -0.0493
-2025-10-28 17:20:13 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
-2025-10-28 17:20:13 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 5835.30±185.84 | Test MAE 5366.70 | Test R² -0.0492
-2025-10-28 17:20:13 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
-2025-10-28 17:20:15 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 6230.08±306.90 | Test MAE 5597.03 | Test R² -0.1846
-2025-10-28 17:20:15 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
-2025-10-28 17:20:15 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 6157.77±353.68 | Test MAE 5661.85 | Test R² -0.1887
-2025-10-28 17:20:15 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
-2025-10-28 17:20:15 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 6888.08±227.96 | Test MAE 6125.75 | Test R² -0.4991
-2025-10-28 17:20:15 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
-2025-10-28 17:20:15 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 6885.78±334.27 | Test MAE 6080.83 | Test R² -0.4028
-2025-10-28 17:20:15 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
-2025-10-28 17:20:18 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 6376.82±311.01 | Test MAE 5885.40 | Test R² -0.2750
-2025-10-28 17:20:18 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
-2025-10-28 17:20:19 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 6675.81±241.79 | Test MAE 6015.82 | Test R² -0.3230
-2025-10-28 17:20:19 | INFO     | src.vehicle_efficiency.core.pipeline:run:116 - Fine-tuning top-2 for EV cohort | metric='mae'
-2025-10-28 17:20:19 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:238 - Ranking base models to select top-2 for fine-tuning | rank_by='r2'
-2025-10-28 17:20:19 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
-2025-10-28 17:20:19 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 1934.08±114.98 | Test MAE 2034.76 | Test R² -0.0056
-2025-10-28 17:20:19 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
-2025-10-28 17:20:19 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 1933.05±114.59 | Test MAE 2036.97 | Test R² -0.0070
-2025-10-28 17:20:19 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
-2025-10-28 17:20:19 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 1933.74±114.03 | Test MAE 2036.95 | Test R² -0.0070
-2025-10-28 17:20:19 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
-2025-10-28 17:20:21 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 2026.00±101.88 | Test MAE 2074.84 | Test R² -0.0330
-2025-10-28 17:20:21 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
-2025-10-28 17:20:21 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 2024.03±85.31 | Test MAE 1999.66 | Test R² 0.0122
-2025-10-28 17:20:21 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
-2025-10-28 17:20:21 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 2466.54±207.24 | Test MAE 2388.10 | Test R² -0.4960
-2025-10-28 17:20:21 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
-2025-10-28 17:20:21 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 2166.01±137.40 | Test MAE 2204.86 | Test R² -0.1511
-2025-10-28 17:20:21 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
-2025-10-28 17:20:25 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 2076.62±101.13 | Test MAE 2185.10 | Test R² -0.1439
-2025-10-28 17:20:25 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
-2025-10-28 17:20:26 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 2185.23±120.29 | Test MAE 2145.19 | Test R² -0.1384
-2025-10-28 17:20:26 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:243 - Selected top-2 for tuning: ['Gradient Boosting', 'Linear Regression']
-2025-10-28 17:20:26 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:253 - Tuning 'Gradient Boosting' with Optuna (if available) | metric='mae' | trials=50
-2025-10-28 17:21:31 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:274 - Tuned 'Gradient Boosting' | Test MAE 2041.60 | Test R² -0.0002
-2025-10-28 17:21:31 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:260 - Tuning 'Linear Regression' with sklearn 'random' search | metric='mae'
-2025-10-28 17:21:31 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:274 - Tuned 'Linear Regression' | Test MAE 2034.76 | Test R² -0.0056
-2025-10-28 17:21:31 | INFO     | src.vehicle_efficiency.core.pipeline:run:118 - Fine-tuning top-2 for ICE cohort | metric='mae'
-2025-10-28 17:21:31 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:238 - Ranking base models to select top-2 for fine-tuning | rank_by='r2'
-2025-10-28 17:21:31 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
-2025-10-28 17:21:31 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 5836.60±186.52 | Test MAE 5367.33 | Test R² -0.0494
-2025-10-28 17:21:31 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
-2025-10-28 17:21:31 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 5834.84±184.53 | Test MAE 5367.07 | Test R² -0.0493
-2025-10-28 17:21:31 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
-2025-10-28 17:21:31 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 5835.30±185.84 | Test MAE 5366.70 | Test R² -0.0492
-2025-10-28 17:21:31 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
-2025-10-28 17:21:33 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 6230.08±306.90 | Test MAE 5597.03 | Test R² -0.1846
-2025-10-28 17:21:33 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
-2025-10-28 17:21:33 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 6157.77±353.68 | Test MAE 5661.85 | Test R² -0.1887
-2025-10-28 17:21:33 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
-2025-10-28 17:21:33 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 6888.08±227.96 | Test MAE 6125.75 | Test R² -0.4991
-2025-10-28 17:21:33 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
-2025-10-28 17:21:34 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 6885.78±334.27 | Test MAE 6080.83 | Test R² -0.4028
-2025-10-28 17:21:34 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
-2025-10-28 17:21:38 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 6376.82±311.01 | Test MAE 5885.40 | Test R² -0.2750
-2025-10-28 17:21:38 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
-2025-10-28 17:21:40 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 6675.81±241.79 | Test MAE 6015.82 | Test R² -0.3230
-2025-10-28 17:21:40 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:243 - Selected top-2 for tuning: ['Lasso Regression', 'Ridge Regression']
-2025-10-28 17:21:40 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:260 - Tuning 'Lasso Regression' with sklearn 'random' search | metric='mae'
-2025-10-28 17:21:41 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:274 - Tuned 'Lasso Regression' | Test MAE 5345.98 | Test R² -0.0426
-2025-10-28 17:21:41 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:260 - Tuning 'Ridge Regression' with sklearn 'random' search | metric='mae'
-2025-10-28 17:21:42 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:274 - Tuned 'Ridge Regression' | Test MAE 5343.68 | Test R² -0.0387
-2025-10-28 17:21:42 | INFO     | src.vehicle_efficiency.core.pipeline:run:126 - Best models | EV='Gradient Boosting' (test_r2=0.0122) | ICE='Tuned Ridge Regression' (test_r2=-0.0387)
-2025-10-28 17:21:42 | INFO     | src.vehicle_efficiency.utils.reporting:save_core_artifacts:32 - Saving rankings and results artifacts to output/efficiency
-2025-10-28 17:21:42 | INFO     | src.vehicle_efficiency.utils.reporting:write_final_report_markdown:163 - Report written to output/efficiency/final_modeling_report.md
-2025-10-28 17:21:42 | INFO     | src.vehicle_efficiency.core.pipeline:run:158 - Final report written to output/efficiency/final_modeling_report.md
-2025-10-28 17:21:42 | INFO     | src.vehicle_efficiency.utils.visualization:simple_dashboard:62 - Saving simple dashboard to output/efficiency/enhanced_efficiency_dashboard.png
-2025-10-28 17:21:43 | INFO     | src.vehicle_efficiency.utils.visualization:cv_stability_plots:13 - Saving CV stability plots to output/efficiency
-2025-10-28 17:21:45 | INFO     | src.vehicle_efficiency.core.pipeline:run:167 - Generating advanced visualizations (individual plots and dashboards)
-2025-10-28 17:21:45 | INFO     | src.vehicle_efficiency.utils.visualization:advanced_viz:607 - Generating advanced visualizations into output/efficiency
-2025-10-28 17:21:45 | INFO     | src.vehicle_efficiency.utils.visualization:individual_plots:226 - Saving individual plots to output/efficiency/individual_plots
-2025-10-28 17:21:55 | INFO     | src.vehicle_efficiency.utils.visualization:correlation_analysis_dashboard:433 - Saving correlation analysis dashboard to output/efficiency/correlation_analysis_dashboard.png
-2025-10-28 17:21:57 | INFO     | src.vehicle_efficiency.utils.visualization:detailed_correlation_matrices:543 - Saving detailed correlation matrices to output/efficiency/detailed_correlation_matrices.png
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:294 - 📊 PERFORMANCE SUMMARY FOR TARGET: EFFICIENCY
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:311 - 🔋 Best EV Model: Gradient Boosting | R²=0.0122 | MAE=1999.6560
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:327 - ⛽ Best ICE Model: Tuned Ridge Regression | R²=-0.0387 | MAE=5343.6821
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:332 - 📁 Output Directory: output/efficiency
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:333 - 
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.core.pipeline:run:284 - Completed analysis for target 'efficiency' | output_dir='output/efficiency'
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.core.pipeline:run:255 - ============================================================
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.core.pipeline:run:256 - ANALYZING TARGET: MILEAGE (mileage_km)
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.core.pipeline:run:257 - ============================================================
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.core.pipeline:run:68 - Starting enhanced pipeline run | data_path='data/vehicle_comparison_dataset_030417.csv' | rank_by='r2' | enable_viz=True | enable_fine_tuning=True | enable_tuning=True
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.core.pipeline:run:70 - Loading and preparing data from 'data/vehicle_comparison_dataset_030417.csv' for target 'mileage_km'
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:81 - Loading data from 'data/vehicle_comparison_dataset_030417.csv' for target variable 'mileage_km'
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:83 - Loaded dataframe with shape (2000, 10)
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:99 - Removed outliers by mileage_km | kept 1980 of 2000 rows (-20 removed)
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:111 - Split datasets for mileage_km | EV shape (1000, 10) | ICE shape (980, 10)
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.core.pipeline:run:74 - Engineering features for EV and ICE cohorts
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.features.engineering:engineer_features:90 - Engineered 22 features (excluding originals & target)
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.features.engineering:engineer_features:90 - Engineered 22 features (excluding originals & target)
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.core.pipeline:run:81 - Selecting features per cohort
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.features.selection:select_features:56 - Selected 7 features for 'ELECTRIC VEHICLES' cohort
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.features.selection:select_features:56 - Selected 9 features for 'ICE VEHICLES' cohort
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.core.pipeline:run:84 - Selected features | EV=7 | ICE=9
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.core.pipeline:run:91 - Training models for EV cohort
-2025-10-28 17:21:58 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
-2025-10-28 17:21:59 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 1934.08±114.98 | Test MAE 2034.76 | Test R² -0.0056
-2025-10-28 17:21:59 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
-2025-10-28 17:21:59 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 1933.05±114.59 | Test MAE 2036.97 | Test R² -0.0070
-2025-10-28 17:21:59 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
-2025-10-28 17:21:59 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 1933.74±114.03 | Test MAE 2036.95 | Test R² -0.0070
-2025-10-28 17:21:59 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
-2025-10-28 17:22:00 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 2026.00±101.88 | Test MAE 2074.84 | Test R² -0.0330
-2025-10-28 17:22:00 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
-2025-10-28 17:22:00 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 2024.03±85.31 | Test MAE 1999.66 | Test R² 0.0122
-2025-10-28 17:22:00 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
-2025-10-28 17:22:00 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 2466.54±207.24 | Test MAE 2388.10 | Test R² -0.4960
-2025-10-28 17:22:00 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
-2025-10-28 17:22:01 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 2166.01±137.40 | Test MAE 2204.86 | Test R² -0.1511
-2025-10-28 17:22:01 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
-2025-10-28 17:22:04 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 2076.62±101.13 | Test MAE 2185.10 | Test R² -0.1439
-2025-10-28 17:22:04 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
-2025-10-28 17:22:05 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 2185.23±120.29 | Test MAE 2145.19 | Test R² -0.1384
-2025-10-28 17:22:05 | INFO     | src.vehicle_efficiency.core.pipeline:run:93 - Training models for ICE cohort
-2025-10-28 17:22:05 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Linear Regression'
-2025-10-28 17:22:05 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Linear Regression' | CV MAE 6128.29±159.96 | Test MAE 5460.04 | Test R² -0.0289
-2025-10-28 17:22:05 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Ridge Regression'
-2025-10-28 17:22:05 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Ridge Regression' | CV MAE 6123.49±156.45 | Test MAE 5455.99 | Test R² -0.0276
-2025-10-28 17:22:05 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Lasso Regression'
-2025-10-28 17:22:06 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Lasso Regression' | CV MAE 6127.57±158.30 | Test MAE 5458.34 | Test R² -0.0283
-2025-10-28 17:22:06 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Random Forest'
-2025-10-28 17:22:07 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Random Forest' | CV MAE 6445.61±211.91 | Test MAE 5714.99 | Test R² -0.1172
-2025-10-28 17:22:07 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Gradient Boosting'
-2025-10-28 17:22:08 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Gradient Boosting' | CV MAE 6453.23±231.56 | Test MAE 5878.49 | Test R² -0.1235
-2025-10-28 17:22:08 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'Decision Tree'
-2025-10-28 17:22:08 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'Decision Tree' | CV MAE 7631.35±192.61 | Test MAE 6581.86 | Test R² -0.3717
-2025-10-28 17:22:08 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'XGBoost'
-2025-10-28 17:22:09 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'XGBoost' | CV MAE 7072.73±342.61 | Test MAE 6511.79 | Test R² -0.4247
-2025-10-28 17:22:09 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'CatBoost'
-2025-10-28 17:22:13 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'CatBoost' | CV MAE 6559.63±191.57 | Test MAE 6178.07 | Test R² -0.2786
-2025-10-28 17:22:13 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:55 - Training model 'LightGBM'
-2025-10-28 17:22:15 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:97 - Model 'LightGBM' | CV MAE 6860.93±292.24 | Test MAE 6188.97 | Test R² -0.3552
-2025-10-28 17:22:15 | INFO     | src.vehicle_efficiency.core.pipeline:run:116 - Fine-tuning top-2 for EV cohort | metric='mae'
-2025-10-28 17:22:15 | WARNING  | src.vehicle_efficiency.core.pipeline:run:121 - Fine-tune step skipped due to error: 'mileage_km'
-2025-10-28 17:22:15 | INFO     | src.vehicle_efficiency.core.pipeline:run:126 - Best models | EV='Gradient Boosting' (test_r2=0.0122) | ICE='Ridge Regression' (test_r2=-0.0276)
-2025-10-28 17:22:15 | INFO     | src.vehicle_efficiency.utils.reporting:save_core_artifacts:32 - Saving rankings and results artifacts to output/mileage
-2025-10-28 17:22:15 | INFO     | src.vehicle_efficiency.utils.reporting:write_final_report_markdown:163 - Report written to output/mileage/final_modeling_report.md
-2025-10-28 17:22:15 | INFO     | src.vehicle_efficiency.core.pipeline:run:158 - Final report written to output/mileage/final_modeling_report.md
-2025-10-28 17:22:15 | INFO     | src.vehicle_efficiency.utils.visualization:simple_dashboard:62 - Saving simple dashboard to output/mileage/enhanced_efficiency_dashboard.png
-2025-10-28 17:22:16 | INFO     | src.vehicle_efficiency.utils.visualization:cv_stability_plots:13 - Saving CV stability plots to output/mileage
-2025-10-28 17:22:17 | INFO     | src.vehicle_efficiency.core.pipeline:run:167 - Generating advanced visualizations (individual plots and dashboards)
-2025-10-28 17:22:17 | INFO     | src.vehicle_efficiency.utils.visualization:advanced_viz:607 - Generating advanced visualizations into output/mileage
-2025-10-28 17:22:17 | INFO     | src.vehicle_efficiency.utils.visualization:individual_plots:226 - Saving individual plots to output/mileage/individual_plots
-2025-10-28 17:22:27 | INFO     | src.vehicle_efficiency.utils.visualization:correlation_analysis_dashboard:433 - Saving correlation analysis dashboard to output/mileage/correlation_analysis_dashboard.png
-2025-10-28 17:22:30 | INFO     | src.vehicle_efficiency.utils.visualization:detailed_correlation_matrices:543 - Saving detailed correlation matrices to output/mileage/detailed_correlation_matrices.png
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:294 - 📊 PERFORMANCE SUMMARY FOR TARGET: MILEAGE
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:311 - 🔋 Best EV Model: Gradient Boosting | R²=0.0122 | MAE=1999.6560
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:327 - ⛽ Best ICE Model: Ridge Regression | R²=-0.0276 | MAE=5455.9924
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:332 - 📁 Output Directory: output/mileage
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:333 - 
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:run:284 - Completed analysis for target 'mileage' | output_dir='output/mileage'
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:337 - 🎯 MULTI-TARGET ANALYSIS COMPLETE
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:338 - ============================================================
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:342 - 📊 MAINTENANCE_COST: output/maintenance_cost
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:342 - 📊 EFFICIENCY: output/efficiency
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:342 - 📊 MILEAGE: output/mileage
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:344 - 
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:345 - 🔍 Each target directory contains:
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:346 -   • Model rankings and best models
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:347 -   • Feature importance and selection results
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:348 -   • Comprehensive visualizations and plots
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:349 -   • Performance metrics and final reports
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:350 -   • Cross-validation stability analysis
-2025-10-28 17:22:31 | INFO     | src.vehicle_efficiency.core.pipeline:run:289 - Multi-target analysis completed successfully | 3 targets analyzed
-2025-10-28 17:22:31 | SUCCESS  | __main__:main:169 - Pipeline completed successfully!
-2025-10-28 17:22:31 | INFO     | __main__:main:170 - Results saved to: output
+2025-10-28 18:04:27 | INFO     | __main__:main:128 - Starting Vehicle Efficiency Analysis Pipeline
+2025-10-28 18:04:27 | INFO     | __main__:main:129 - Input data: data/vehicle_comparison_dataset_030417.csv
+2025-10-28 18:04:27 | INFO     | __main__:main:130 - Output directory: output
+2025-10-28 18:04:27 | INFO     | __main__:main:131 - Multi-target analysis: True
+2025-10-28 18:04:27 | INFO     | __main__:main:132 - Ranking metric: r2
+2025-10-28 18:04:27 | INFO     | __main__:main:133 - Tuning enabled: True
+2025-10-28 18:04:27 | INFO     | __main__:main:134 - Advanced visualizations: True
+2025-10-28 18:04:27 | INFO     | __main__:main:135 - Fine-tuning enabled: True
+2025-10-28 18:04:27 | INFO     | src.vehicle_efficiency.core.pipeline:run:250 - Starting multi-target analysis for 3 targets
+2025-10-28 18:04:27 | INFO     | src.vehicle_efficiency.core.pipeline:run:255 - ============================================================
+2025-10-28 18:04:27 | INFO     | src.vehicle_efficiency.core.pipeline:run:256 - ANALYZING TARGET: MAINTENANCE_COST (maintenance_cost_annual)
+2025-10-28 18:04:27 | INFO     | src.vehicle_efficiency.core.pipeline:run:257 - ============================================================
+2025-10-28 18:04:27 | INFO     | src.vehicle_efficiency.core.pipeline:run:68 - Starting enhanced pipeline run | data_path='data/vehicle_comparison_dataset_030417.csv' | rank_by='r2' | enable_viz=True | enable_fine_tuning=True | enable_tuning=True
+2025-10-28 18:04:27 | INFO     | src.vehicle_efficiency.core.pipeline:run:70 - Loading and preparing data from 'data/vehicle_comparison_dataset_030417.csv' for target 'maintenance_cost_annual'
+2025-10-28 18:04:27 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:81 - Loading data from 'data/vehicle_comparison_dataset_030417.csv' for target variable 'maintenance_cost_annual'
+2025-10-28 18:04:27 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:83 - Loaded dataframe with shape (2000, 10)
+2025-10-28 18:04:27 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:99 - Removed outliers by maintenance_cost_annual | kept 1998 of 2000 rows (-2 removed)
+2025-10-28 18:04:27 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:111 - Split datasets for maintenance_cost_annual | EV shape (1000, 10) | ICE shape (998, 10)
+2025-10-28 18:04:27 | INFO     | src.vehicle_efficiency.core.pipeline:run:74 - Engineering features for EV and ICE cohorts
+2025-10-28 18:04:27 | INFO     | src.vehicle_efficiency.features.engineering:engineer_features:90 - Engineered 22 features (excluding originals & target)
+2025-10-28 18:04:27 | INFO     | src.vehicle_efficiency.features.engineering:engineer_features:90 - Engineered 22 features (excluding originals & target)
+2025-10-28 18:04:27 | INFO     | src.vehicle_efficiency.core.pipeline:run:81 - Selecting features per cohort
+2025-10-28 18:04:28 | INFO     | src.vehicle_efficiency.features.selection:select_features:56 - Selected 7 features for 'ELECTRIC VEHICLES' cohort
+2025-10-28 18:04:28 | INFO     | src.vehicle_efficiency.features.selection:select_features:56 - Selected 8 features for 'ICE VEHICLES' cohort
+2025-10-28 18:04:28 | INFO     | src.vehicle_efficiency.core.pipeline:run:84 - Selected features | EV=7 | ICE=8
+2025-10-28 18:04:29 | INFO     | src.vehicle_efficiency.core.pipeline:run:91 - Training models for EV cohort
+2025-10-28 18:04:29 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Linear Regression'
+2025-10-28 18:04:35 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Linear Regression' | CV MAE 1929.34±117.00 | Test MAE 2032.01 | Test R² -0.0038
+2025-10-28 18:04:35 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Ridge Regression'
+2025-10-28 18:04:37 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Ridge Regression' | CV MAE 1927.23±114.43 | Test MAE 2041.99 | Test R² -0.0103
+2025-10-28 18:04:37 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Lasso Regression'
+2025-10-28 18:04:37 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Lasso Regression' | CV MAE 1927.75±114.00 | Test MAE 2040.52 | Test R² -0.0096
+2025-10-28 18:04:37 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Random Forest'
+2025-10-28 18:04:41 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Random Forest' | CV MAE 2026.00±101.88 | Test MAE 2074.84 | Test R² -0.0330
+2025-10-28 18:04:41 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Gradient Boosting'
+2025-10-28 18:04:43 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Gradient Boosting' | CV MAE 2024.03±85.31 | Test MAE 1999.66 | Test R² 0.0122
+2025-10-28 18:04:43 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Decision Tree'
+2025-10-28 18:04:43 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Decision Tree' | CV MAE 2466.54±207.24 | Test MAE 2388.10 | Test R² -0.4960
+2025-10-28 18:04:43 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'XGBoost'
+2025-10-28 18:04:43 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'XGBoost' | CV MAE 2166.01±137.40 | Test MAE 2204.86 | Test R² -0.1511
+2025-10-28 18:04:43 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'CatBoost'
+2025-10-28 18:04:48 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'CatBoost' | CV MAE 2076.62±101.13 | Test MAE 2185.10 | Test R² -0.1439
+2025-10-28 18:04:48 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'LightGBM'
+2025-10-28 18:04:51 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'LightGBM' | CV MAE 2185.23±120.29 | Test MAE 2145.19 | Test R² -0.1384
+2025-10-28 18:04:51 | INFO     | src.vehicle_efficiency.core.pipeline:run:93 - Training models for ICE cohort
+2025-10-28 18:04:51 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Linear Regression'
+2025-10-28 18:04:51 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Linear Regression' | CV MAE 6100.50±239.42 | Test MAE 6401.00 | Test R² -0.0163
+2025-10-28 18:04:51 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Ridge Regression'
+2025-10-28 18:04:51 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Ridge Regression' | CV MAE 6073.04±252.44 | Test MAE 6392.75 | Test R² -0.0149
+2025-10-28 18:04:51 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Lasso Regression'
+2025-10-28 18:04:51 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Lasso Regression' | CV MAE 6090.04±242.84 | Test MAE 6397.80 | Test R² -0.0156
+2025-10-28 18:04:51 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Random Forest'
+2025-10-28 18:04:53 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Random Forest' | CV MAE 6434.67±329.42 | Test MAE 6580.57 | Test R² -0.0758
+2025-10-28 18:04:53 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Gradient Boosting'
+2025-10-28 18:04:54 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Gradient Boosting' | CV MAE 6535.90±400.74 | Test MAE 6569.18 | Test R² -0.0659
+2025-10-28 18:04:54 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Decision Tree'
+2025-10-28 18:04:54 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Decision Tree' | CV MAE 7226.20±596.80 | Test MAE 8213.23 | Test R² -0.6334
+2025-10-28 18:04:54 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'XGBoost'
+2025-10-28 18:04:54 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'XGBoost' | CV MAE 7060.55±200.42 | Test MAE 7277.88 | Test R² -0.2912
+2025-10-28 18:04:54 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'CatBoost'
+2025-10-28 18:04:58 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'CatBoost' | CV MAE 6765.83±310.09 | Test MAE 6711.89 | Test R² -0.0901
+2025-10-28 18:04:58 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'LightGBM'
+2025-10-28 18:05:00 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'LightGBM' | CV MAE 7041.71±316.94 | Test MAE 7166.75 | Test R² -0.2372
+2025-10-28 18:05:00 | INFO     | src.vehicle_efficiency.core.pipeline:run:116 - Fine-tuning top-2 for EV cohort | metric='mae'
+2025-10-28 18:05:00 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:243 - Ranking base models to select top-2 for fine-tuning | rank_by='r2'
+2025-10-28 18:05:00 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Linear Regression'
+2025-10-28 18:05:01 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Linear Regression' | CV MAE 1929.34±117.00 | Test MAE 2032.01 | Test R² -0.0038
+2025-10-28 18:05:01 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Ridge Regression'
+2025-10-28 18:05:01 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Ridge Regression' | CV MAE 1927.23±114.43 | Test MAE 2041.99 | Test R² -0.0103
+2025-10-28 18:05:01 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Lasso Regression'
+2025-10-28 18:05:01 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Lasso Regression' | CV MAE 1927.75±114.00 | Test MAE 2040.52 | Test R² -0.0096
+2025-10-28 18:05:01 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Random Forest'
+2025-10-28 18:05:02 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Random Forest' | CV MAE 2026.00±101.88 | Test MAE 2074.84 | Test R² -0.0330
+2025-10-28 18:05:02 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Gradient Boosting'
+2025-10-28 18:05:02 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Gradient Boosting' | CV MAE 2024.03±85.31 | Test MAE 1999.66 | Test R² 0.0122
+2025-10-28 18:05:02 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Decision Tree'
+2025-10-28 18:05:02 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Decision Tree' | CV MAE 2466.54±207.24 | Test MAE 2388.10 | Test R² -0.4960
+2025-10-28 18:05:02 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'XGBoost'
+2025-10-28 18:05:03 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'XGBoost' | CV MAE 2166.01±137.40 | Test MAE 2204.86 | Test R² -0.1511
+2025-10-28 18:05:03 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'CatBoost'
+2025-10-28 18:05:06 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'CatBoost' | CV MAE 2076.62±101.13 | Test MAE 2185.10 | Test R² -0.1439
+2025-10-28 18:05:06 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'LightGBM'
+2025-10-28 18:05:08 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'LightGBM' | CV MAE 2185.23±120.29 | Test MAE 2145.19 | Test R² -0.1384
+2025-10-28 18:05:08 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:248 - Selected top-2 for tuning: ['Gradient Boosting', 'Linear Regression']
+2025-10-28 18:05:08 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:258 - Tuning 'Gradient Boosting' with Optuna (if available) | metric='mae' | trials=50
+2025-10-28 18:07:16 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:279 - Tuned 'Gradient Boosting' | Test MAE 618.03 | Test R² 0.9825
+2025-10-28 18:07:16 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:265 - Tuning 'Linear Regression' with sklearn 'random' search | metric='mae'
+2025-10-28 18:07:16 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:279 - Tuned 'Linear Regression' | Test MAE 1961.15 | Test R² 0.9162
+2025-10-28 18:07:16 | INFO     | src.vehicle_efficiency.core.pipeline:run:118 - Fine-tuning top-2 for ICE cohort | metric='mae'
+2025-10-28 18:07:16 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:243 - Ranking base models to select top-2 for fine-tuning | rank_by='r2'
+2025-10-28 18:07:16 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Linear Regression'
+2025-10-28 18:07:16 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Linear Regression' | CV MAE 6100.50±239.42 | Test MAE 6401.00 | Test R² -0.0163
+2025-10-28 18:07:16 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Ridge Regression'
+2025-10-28 18:07:16 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Ridge Regression' | CV MAE 6073.04±252.44 | Test MAE 6392.75 | Test R² -0.0149
+2025-10-28 18:07:16 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Lasso Regression'
+2025-10-28 18:07:16 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Lasso Regression' | CV MAE 6090.04±242.84 | Test MAE 6397.80 | Test R² -0.0156
+2025-10-28 18:07:16 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Random Forest'
+2025-10-28 18:07:18 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Random Forest' | CV MAE 6434.67±329.42 | Test MAE 6580.57 | Test R² -0.0758
+2025-10-28 18:07:18 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Gradient Boosting'
+2025-10-28 18:07:18 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Gradient Boosting' | CV MAE 6535.90±400.74 | Test MAE 6569.18 | Test R² -0.0659
+2025-10-28 18:07:18 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Decision Tree'
+2025-10-28 18:07:18 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Decision Tree' | CV MAE 7226.20±596.80 | Test MAE 8213.23 | Test R² -0.6334
+2025-10-28 18:07:18 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'XGBoost'
+2025-10-28 18:07:19 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'XGBoost' | CV MAE 7060.55±200.42 | Test MAE 7277.88 | Test R² -0.2912
+2025-10-28 18:07:19 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'CatBoost'
+2025-10-28 18:07:22 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'CatBoost' | CV MAE 6765.83±310.09 | Test MAE 6711.89 | Test R² -0.0901
+2025-10-28 18:07:22 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'LightGBM'
+2025-10-28 18:07:24 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'LightGBM' | CV MAE 7041.71±316.94 | Test MAE 7166.75 | Test R² -0.2372
+2025-10-28 18:07:24 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:248 - Selected top-2 for tuning: ['Ridge Regression', 'Lasso Regression']
+2025-10-28 18:07:24 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:265 - Tuning 'Ridge Regression' with sklearn 'random' search | metric='mae'
+2025-10-28 18:07:24 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:279 - Tuned 'Ridge Regression' | Test MAE 1541.46 | Test R² 0.9773
+2025-10-28 18:07:24 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:265 - Tuning 'Lasso Regression' with sklearn 'random' search | metric='mae'
+2025-10-28 18:07:25 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:279 - Tuned 'Lasso Regression' | Test MAE 1544.80 | Test R² 0.9764
+2025-10-28 18:07:25 | INFO     | src.vehicle_efficiency.core.pipeline:run:126 - Best models | EV='Tuned Gradient Boosting' (test_r2=0.9825) | ICE='Tuned Ridge Regression' (test_r2=0.9773)
+2025-10-28 18:07:25 | INFO     | src.vehicle_efficiency.utils.reporting:save_core_artifacts:32 - Saving rankings and results artifacts to output/maintenance_cost
+2025-10-28 18:07:25 | INFO     | src.vehicle_efficiency.utils.reporting:write_final_report_markdown:163 - Report written to output/maintenance_cost/final_modeling_report.md
+2025-10-28 18:07:25 | INFO     | src.vehicle_efficiency.core.pipeline:run:158 - Final report written to output/maintenance_cost/final_modeling_report.md
+2025-10-28 18:07:25 | INFO     | src.vehicle_efficiency.utils.visualization:simple_dashboard:62 - Saving simple dashboard to output/maintenance_cost/enhanced_efficiency_dashboard.png
+2025-10-28 18:07:27 | INFO     | src.vehicle_efficiency.utils.visualization:cv_stability_plots:13 - Saving CV stability plots to output/maintenance_cost
+2025-10-28 18:07:28 | INFO     | src.vehicle_efficiency.core.pipeline:run:167 - Generating advanced visualizations (individual plots and dashboards)
+2025-10-28 18:07:28 | INFO     | src.vehicle_efficiency.utils.visualization:advanced_viz:607 - Generating advanced visualizations into output/maintenance_cost
+2025-10-28 18:07:28 | INFO     | src.vehicle_efficiency.utils.visualization:individual_plots:226 - Saving individual plots to output/maintenance_cost/individual_plots
+2025-10-28 18:07:38 | INFO     | src.vehicle_efficiency.utils.visualization:correlation_analysis_dashboard:433 - Saving correlation analysis dashboard to output/maintenance_cost/correlation_analysis_dashboard.png
+2025-10-28 18:07:40 | INFO     | src.vehicle_efficiency.utils.visualization:detailed_correlation_matrices:543 - Saving detailed correlation matrices to output/maintenance_cost/detailed_correlation_matrices.png
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:294 - 📊 PERFORMANCE SUMMARY FOR TARGET: MAINTENANCE_COST
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:311 - 🔋 Best EV Model: Tuned Gradient Boosting | R²=0.9825 | MAE=618.0288
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:327 - ⛽ Best ICE Model: Tuned Ridge Regression | R²=0.9773 | MAE=1541.4615
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:332 - 📁 Output Directory: output/maintenance_cost
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:333 - 
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.pipeline:run:284 - Completed analysis for target 'maintenance_cost' | output_dir='output/maintenance_cost'
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.pipeline:run:255 - ============================================================
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.pipeline:run:256 - ANALYZING TARGET: EFFICIENCY (efficiency)
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.pipeline:run:257 - ============================================================
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.pipeline:run:68 - Starting enhanced pipeline run | data_path='data/vehicle_comparison_dataset_030417.csv' | rank_by='r2' | enable_viz=True | enable_fine_tuning=True | enable_tuning=True
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.pipeline:run:70 - Loading and preparing data from 'data/vehicle_comparison_dataset_030417.csv' for target 'efficiency'
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:81 - Loading data from 'data/vehicle_comparison_dataset_030417.csv' for target variable 'efficiency'
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:83 - Loaded dataframe with shape (2000, 10)
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:99 - Removed outliers by efficiency | kept 1983 of 2000 rows (-17 removed)
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:111 - Split datasets for efficiency | EV shape (1000, 10) | ICE shape (983, 10)
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.pipeline:run:74 - Engineering features for EV and ICE cohorts
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.features.engineering:engineer_features:90 - Engineered 22 features (excluding originals & target)
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.features.engineering:engineer_features:90 - Engineered 22 features (excluding originals & target)
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.pipeline:run:81 - Selecting features per cohort
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.features.selection:select_features:56 - Selected 7 features for 'ELECTRIC VEHICLES' cohort
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.features.selection:select_features:56 - Selected 5 features for 'ICE VEHICLES' cohort
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.pipeline:run:84 - Selected features | EV=7 | ICE=5
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.pipeline:run:91 - Training models for EV cohort
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Linear Regression'
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Linear Regression' | CV MAE 1929.34±117.00 | Test MAE 2032.01 | Test R² -0.0038
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Ridge Regression'
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Ridge Regression' | CV MAE 1927.23±114.43 | Test MAE 2041.99 | Test R² -0.0103
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Lasso Regression'
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Lasso Regression' | CV MAE 1927.75±114.00 | Test MAE 2040.52 | Test R² -0.0096
+2025-10-28 18:07:42 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Random Forest'
+2025-10-28 18:07:44 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Random Forest' | CV MAE 2026.00±101.88 | Test MAE 2074.84 | Test R² -0.0330
+2025-10-28 18:07:44 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Gradient Boosting'
+2025-10-28 18:07:44 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Gradient Boosting' | CV MAE 2024.03±85.31 | Test MAE 1999.66 | Test R² 0.0122
+2025-10-28 18:07:44 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Decision Tree'
+2025-10-28 18:07:45 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Decision Tree' | CV MAE 2466.54±207.24 | Test MAE 2388.10 | Test R² -0.4960
+2025-10-28 18:07:45 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'XGBoost'
+2025-10-28 18:07:45 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'XGBoost' | CV MAE 2166.01±137.40 | Test MAE 2204.86 | Test R² -0.1511
+2025-10-28 18:07:45 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'CatBoost'
+2025-10-28 18:07:48 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'CatBoost' | CV MAE 2076.62±101.13 | Test MAE 2185.10 | Test R² -0.1439
+2025-10-28 18:07:48 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'LightGBM'
+2025-10-28 18:07:50 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'LightGBM' | CV MAE 2185.23±120.29 | Test MAE 2145.19 | Test R² -0.1384
+2025-10-28 18:07:50 | INFO     | src.vehicle_efficiency.core.pipeline:run:93 - Training models for ICE cohort
+2025-10-28 18:07:50 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Linear Regression'
+2025-10-28 18:07:50 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Linear Regression' | CV MAE 5853.39±179.95 | Test MAE 5382.16 | Test R² -0.0551
+2025-10-28 18:07:50 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Ridge Regression'
+2025-10-28 18:07:50 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Ridge Regression' | CV MAE 5832.42±178.32 | Test MAE 5377.61 | Test R² -0.0535
+2025-10-28 18:07:50 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Lasso Regression'
+2025-10-28 18:07:50 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Lasso Regression' | CV MAE 5845.41±178.30 | Test MAE 5380.95 | Test R² -0.0545
+2025-10-28 18:07:50 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Random Forest'
+2025-10-28 18:07:51 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Random Forest' | CV MAE 6230.08±306.90 | Test MAE 5597.03 | Test R² -0.1846
+2025-10-28 18:07:51 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Gradient Boosting'
+2025-10-28 18:07:52 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Gradient Boosting' | CV MAE 6157.77±353.68 | Test MAE 5661.85 | Test R² -0.1887
+2025-10-28 18:07:52 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Decision Tree'
+2025-10-28 18:07:52 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Decision Tree' | CV MAE 6888.08±227.96 | Test MAE 6125.75 | Test R² -0.4991
+2025-10-28 18:07:52 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'XGBoost'
+2025-10-28 18:07:52 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'XGBoost' | CV MAE 6885.78±334.27 | Test MAE 6080.83 | Test R² -0.4028
+2025-10-28 18:07:52 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'CatBoost'
+2025-10-28 18:07:55 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'CatBoost' | CV MAE 6376.82±311.01 | Test MAE 5885.40 | Test R² -0.2750
+2025-10-28 18:07:55 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'LightGBM'
+2025-10-28 18:07:57 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'LightGBM' | CV MAE 6675.81±241.79 | Test MAE 6015.82 | Test R² -0.3230
+2025-10-28 18:07:57 | INFO     | src.vehicle_efficiency.core.pipeline:run:116 - Fine-tuning top-2 for EV cohort | metric='mae'
+2025-10-28 18:07:57 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:243 - Ranking base models to select top-2 for fine-tuning | rank_by='r2'
+2025-10-28 18:07:57 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Linear Regression'
+2025-10-28 18:07:57 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Linear Regression' | CV MAE 1929.34±117.00 | Test MAE 2032.01 | Test R² -0.0038
+2025-10-28 18:07:57 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Ridge Regression'
+2025-10-28 18:07:57 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Ridge Regression' | CV MAE 1927.23±114.43 | Test MAE 2041.99 | Test R² -0.0103
+2025-10-28 18:07:57 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Lasso Regression'
+2025-10-28 18:07:57 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Lasso Regression' | CV MAE 1927.75±114.00 | Test MAE 2040.52 | Test R² -0.0096
+2025-10-28 18:07:57 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Random Forest'
+2025-10-28 18:07:58 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Random Forest' | CV MAE 2026.00±101.88 | Test MAE 2074.84 | Test R² -0.0330
+2025-10-28 18:07:58 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Gradient Boosting'
+2025-10-28 18:07:58 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Gradient Boosting' | CV MAE 2024.03±85.31 | Test MAE 1999.66 | Test R² 0.0122
+2025-10-28 18:07:58 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Decision Tree'
+2025-10-28 18:07:58 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Decision Tree' | CV MAE 2466.54±207.24 | Test MAE 2388.10 | Test R² -0.4960
+2025-10-28 18:07:58 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'XGBoost'
+2025-10-28 18:07:59 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'XGBoost' | CV MAE 2166.01±137.40 | Test MAE 2204.86 | Test R² -0.1511
+2025-10-28 18:07:59 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'CatBoost'
+2025-10-28 18:08:02 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'CatBoost' | CV MAE 2076.62±101.13 | Test MAE 2185.10 | Test R² -0.1439
+2025-10-28 18:08:02 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'LightGBM'
+2025-10-28 18:08:04 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'LightGBM' | CV MAE 2185.23±120.29 | Test MAE 2145.19 | Test R² -0.1384
+2025-10-28 18:08:04 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:248 - Selected top-2 for tuning: ['Gradient Boosting', 'Linear Regression']
+2025-10-28 18:08:04 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:258 - Tuning 'Gradient Boosting' with Optuna (if available) | metric='mae' | trials=50
+2025-10-28 18:09:23 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:279 - Tuned 'Gradient Boosting' | Test MAE 2041.71 | Test R² -0.0002
+2025-10-28 18:09:23 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:265 - Tuning 'Linear Regression' with sklearn 'random' search | metric='mae'
+2025-10-28 18:09:23 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:279 - Tuned 'Linear Regression' | Test MAE 2032.01 | Test R² -0.0038
+2025-10-28 18:09:23 | INFO     | src.vehicle_efficiency.core.pipeline:run:118 - Fine-tuning top-2 for ICE cohort | metric='mae'
+2025-10-28 18:09:23 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:243 - Ranking base models to select top-2 for fine-tuning | rank_by='r2'
+2025-10-28 18:09:23 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Linear Regression'
+2025-10-28 18:09:23 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Linear Regression' | CV MAE 5853.39±179.95 | Test MAE 5382.16 | Test R² -0.0551
+2025-10-28 18:09:23 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Ridge Regression'
+2025-10-28 18:09:23 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Ridge Regression' | CV MAE 5832.42±178.32 | Test MAE 5377.61 | Test R² -0.0535
+2025-10-28 18:09:23 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Lasso Regression'
+2025-10-28 18:09:23 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Lasso Regression' | CV MAE 5845.41±178.30 | Test MAE 5380.95 | Test R² -0.0545
+2025-10-28 18:09:23 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Random Forest'
+2025-10-28 18:09:24 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Random Forest' | CV MAE 6230.08±306.90 | Test MAE 5597.03 | Test R² -0.1846
+2025-10-28 18:09:24 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Gradient Boosting'
+2025-10-28 18:09:25 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Gradient Boosting' | CV MAE 6157.77±353.68 | Test MAE 5661.85 | Test R² -0.1887
+2025-10-28 18:09:25 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Decision Tree'
+2025-10-28 18:09:25 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Decision Tree' | CV MAE 6888.08±227.96 | Test MAE 6125.75 | Test R² -0.4991
+2025-10-28 18:09:25 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'XGBoost'
+2025-10-28 18:09:25 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'XGBoost' | CV MAE 6885.78±334.27 | Test MAE 6080.83 | Test R² -0.4028
+2025-10-28 18:09:25 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'CatBoost'
+2025-10-28 18:09:28 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'CatBoost' | CV MAE 6376.82±311.01 | Test MAE 5885.40 | Test R² -0.2750
+2025-10-28 18:09:28 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'LightGBM'
+2025-10-28 18:09:30 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'LightGBM' | CV MAE 6675.81±241.79 | Test MAE 6015.82 | Test R² -0.3230
+2025-10-28 18:09:30 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:248 - Selected top-2 for tuning: ['Ridge Regression', 'Lasso Regression']
+2025-10-28 18:09:30 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:265 - Tuning 'Ridge Regression' with sklearn 'random' search | metric='mae'
+2025-10-28 18:09:31 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:279 - Tuned 'Ridge Regression' | Test MAE 5344.12 | Test R² -0.0385
+2025-10-28 18:09:31 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:265 - Tuning 'Lasso Regression' with sklearn 'random' search | metric='mae'
+2025-10-28 18:09:31 | INFO     | src.vehicle_efficiency.core.tuning:finetune_top_two:279 - Tuned 'Lasso Regression' | Test MAE 5344.44 | Test R² -0.0407
+2025-10-28 18:09:31 | INFO     | src.vehicle_efficiency.core.pipeline:run:126 - Best models | EV='Gradient Boosting' (test_r2=0.0122) | ICE='Tuned Ridge Regression' (test_r2=-0.0385)
+2025-10-28 18:09:31 | INFO     | src.vehicle_efficiency.utils.reporting:save_core_artifacts:32 - Saving rankings and results artifacts to output/efficiency
+2025-10-28 18:09:31 | INFO     | src.vehicle_efficiency.utils.reporting:write_final_report_markdown:163 - Report written to output/efficiency/final_modeling_report.md
+2025-10-28 18:09:31 | INFO     | src.vehicle_efficiency.core.pipeline:run:158 - Final report written to output/efficiency/final_modeling_report.md
+2025-10-28 18:09:31 | INFO     | src.vehicle_efficiency.utils.visualization:simple_dashboard:62 - Saving simple dashboard to output/efficiency/enhanced_efficiency_dashboard.png
+2025-10-28 18:09:33 | INFO     | src.vehicle_efficiency.utils.visualization:cv_stability_plots:13 - Saving CV stability plots to output/efficiency
+2025-10-28 18:09:34 | INFO     | src.vehicle_efficiency.core.pipeline:run:167 - Generating advanced visualizations (individual plots and dashboards)
+2025-10-28 18:09:34 | INFO     | src.vehicle_efficiency.utils.visualization:advanced_viz:607 - Generating advanced visualizations into output/efficiency
+2025-10-28 18:09:34 | INFO     | src.vehicle_efficiency.utils.visualization:individual_plots:226 - Saving individual plots to output/efficiency/individual_plots
+2025-10-28 18:09:44 | INFO     | src.vehicle_efficiency.utils.visualization:correlation_analysis_dashboard:433 - Saving correlation analysis dashboard to output/efficiency/correlation_analysis_dashboard.png
+2025-10-28 18:09:46 | INFO     | src.vehicle_efficiency.utils.visualization:detailed_correlation_matrices:543 - Saving detailed correlation matrices to output/efficiency/detailed_correlation_matrices.png
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:294 - 📊 PERFORMANCE SUMMARY FOR TARGET: EFFICIENCY
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:311 - 🔋 Best EV Model: Gradient Boosting | R²=0.0122 | MAE=1999.6560
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:327 - ⛽ Best ICE Model: Tuned Ridge Regression | R²=-0.0385 | MAE=5344.1200
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:332 - 📁 Output Directory: output/efficiency
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:333 - 
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.pipeline:run:284 - Completed analysis for target 'efficiency' | output_dir='output/efficiency'
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.pipeline:run:255 - ============================================================
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.pipeline:run:256 - ANALYZING TARGET: MILEAGE (mileage_km)
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.pipeline:run:257 - ============================================================
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.pipeline:run:68 - Starting enhanced pipeline run | data_path='data/vehicle_comparison_dataset_030417.csv' | rank_by='r2' | enable_viz=True | enable_fine_tuning=True | enable_tuning=True
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.pipeline:run:70 - Loading and preparing data from 'data/vehicle_comparison_dataset_030417.csv' for target 'mileage_km'
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:81 - Loading data from 'data/vehicle_comparison_dataset_030417.csv' for target variable 'mileage_km'
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:83 - Loaded dataframe with shape (2000, 10)
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:99 - Removed outliers by mileage_km | kept 1980 of 2000 rows (-20 removed)
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.data.preprocessing:load_and_prepare_data_for_target:111 - Split datasets for mileage_km | EV shape (1000, 10) | ICE shape (980, 10)
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.pipeline:run:74 - Engineering features for EV and ICE cohorts
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.features.engineering:engineer_features:90 - Engineered 22 features (excluding originals & target)
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.features.engineering:engineer_features:90 - Engineered 22 features (excluding originals & target)
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.pipeline:run:81 - Selecting features per cohort
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.features.selection:select_features:56 - Selected 7 features for 'ELECTRIC VEHICLES' cohort
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.features.selection:select_features:56 - Selected 9 features for 'ICE VEHICLES' cohort
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.pipeline:run:84 - Selected features | EV=7 | ICE=9
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.pipeline:run:91 - Training models for EV cohort
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Linear Regression'
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Linear Regression' | CV MAE 1929.34±117.00 | Test MAE 2032.01 | Test R² -0.0038
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Ridge Regression'
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Ridge Regression' | CV MAE 1927.23±114.43 | Test MAE 2041.99 | Test R² -0.0103
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Lasso Regression'
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Lasso Regression' | CV MAE 1927.75±114.00 | Test MAE 2040.52 | Test R² -0.0096
+2025-10-28 18:09:48 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Random Forest'
+2025-10-28 18:09:49 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Random Forest' | CV MAE 2026.00±101.88 | Test MAE 2074.84 | Test R² -0.0330
+2025-10-28 18:09:49 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Gradient Boosting'
+2025-10-28 18:09:50 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Gradient Boosting' | CV MAE 2024.03±85.31 | Test MAE 1999.66 | Test R² 0.0122
+2025-10-28 18:09:50 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Decision Tree'
+2025-10-28 18:09:50 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Decision Tree' | CV MAE 2466.54±207.24 | Test MAE 2388.10 | Test R² -0.4960
+2025-10-28 18:09:50 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'XGBoost'
+2025-10-28 18:09:50 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'XGBoost' | CV MAE 2166.01±137.40 | Test MAE 2204.86 | Test R² -0.1511
+2025-10-28 18:09:50 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'CatBoost'
+2025-10-28 18:09:54 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'CatBoost' | CV MAE 2076.62±101.13 | Test MAE 2185.10 | Test R² -0.1439
+2025-10-28 18:09:54 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'LightGBM'
+2025-10-28 18:09:56 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'LightGBM' | CV MAE 2185.23±120.29 | Test MAE 2145.19 | Test R² -0.1384
+2025-10-28 18:09:56 | INFO     | src.vehicle_efficiency.core.pipeline:run:93 - Training models for ICE cohort
+2025-10-28 18:09:56 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Linear Regression'
+2025-10-28 18:09:56 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Linear Regression' | CV MAE 6107.80±134.84 | Test MAE 5404.68 | Test R² -0.0149
+2025-10-28 18:09:56 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Ridge Regression'
+2025-10-28 18:09:56 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Ridge Regression' | CV MAE 6105.11±140.41 | Test MAE 5406.81 | Test R² -0.0152
+2025-10-28 18:09:56 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Lasso Regression'
+2025-10-28 18:09:56 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Lasso Regression' | CV MAE 6109.23±135.94 | Test MAE 5403.48 | Test R² -0.0149
+2025-10-28 18:09:56 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Random Forest'
+2025-10-28 18:09:58 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Random Forest' | CV MAE 6445.61±211.91 | Test MAE 5714.99 | Test R² -0.1172
+2025-10-28 18:09:58 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Gradient Boosting'
+2025-10-28 18:09:59 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Gradient Boosting' | CV MAE 6453.23±231.56 | Test MAE 5878.49 | Test R² -0.1235
+2025-10-28 18:09:59 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'Decision Tree'
+2025-10-28 18:09:59 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'Decision Tree' | CV MAE 7631.35±192.61 | Test MAE 6581.86 | Test R² -0.3717
+2025-10-28 18:09:59 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'XGBoost'
+2025-10-28 18:09:59 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'XGBoost' | CV MAE 7072.73±342.61 | Test MAE 6511.79 | Test R² -0.4247
+2025-10-28 18:09:59 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'CatBoost'
+2025-10-28 18:10:04 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'CatBoost' | CV MAE 6559.63±191.57 | Test MAE 6178.07 | Test R² -0.2786
+2025-10-28 18:10:04 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:61 - Training model 'LightGBM'
+2025-10-28 18:10:06 | INFO     | src.vehicle_efficiency.core.training:train_models_for_vehicle_type:103 - Model 'LightGBM' | CV MAE 6860.93±292.24 | Test MAE 6188.97 | Test R² -0.3552
+2025-10-28 18:10:06 | INFO     | src.vehicle_efficiency.core.pipeline:run:116 - Fine-tuning top-2 for EV cohort | metric='mae'
+2025-10-28 18:10:06 | WARNING  | src.vehicle_efficiency.core.pipeline:run:121 - Fine-tune step skipped due to error: 'mileage_km'
+2025-10-28 18:10:06 | INFO     | src.vehicle_efficiency.core.pipeline:run:126 - Best models | EV='Gradient Boosting' (test_r2=0.0122) | ICE='Lasso Regression' (test_r2=-0.0149)
+2025-10-28 18:10:06 | INFO     | src.vehicle_efficiency.utils.reporting:save_core_artifacts:32 - Saving rankings and results artifacts to output/mileage
+2025-10-28 18:10:06 | INFO     | src.vehicle_efficiency.utils.reporting:write_final_report_markdown:163 - Report written to output/mileage/final_modeling_report.md
+2025-10-28 18:10:06 | INFO     | src.vehicle_efficiency.core.pipeline:run:158 - Final report written to output/mileage/final_modeling_report.md
+2025-10-28 18:10:06 | INFO     | src.vehicle_efficiency.utils.visualization:simple_dashboard:62 - Saving simple dashboard to output/mileage/enhanced_efficiency_dashboard.png
+2025-10-28 18:10:07 | INFO     | src.vehicle_efficiency.utils.visualization:cv_stability_plots:13 - Saving CV stability plots to output/mileage
+2025-10-28 18:10:09 | INFO     | src.vehicle_efficiency.core.pipeline:run:167 - Generating advanced visualizations (individual plots and dashboards)
+2025-10-28 18:10:09 | INFO     | src.vehicle_efficiency.utils.visualization:advanced_viz:607 - Generating advanced visualizations into output/mileage
+2025-10-28 18:10:09 | INFO     | src.vehicle_efficiency.utils.visualization:individual_plots:226 - Saving individual plots to output/mileage/individual_plots
+2025-10-28 18:10:19 | INFO     | src.vehicle_efficiency.utils.visualization:correlation_analysis_dashboard:433 - Saving correlation analysis dashboard to output/mileage/correlation_analysis_dashboard.png
+2025-10-28 18:10:21 | INFO     | src.vehicle_efficiency.utils.visualization:detailed_correlation_matrices:543 - Saving detailed correlation matrices to output/mileage/detailed_correlation_matrices.png
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:294 - 📊 PERFORMANCE SUMMARY FOR TARGET: MILEAGE
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:311 - 🔋 Best EV Model: Gradient Boosting | R²=0.0122 | MAE=1999.6560
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:327 - ⛽ Best ICE Model: Lasso Regression | R²=-0.0149 | MAE=5403.4797
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:332 - 📁 Output Directory: output/mileage
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:_display_target_summary:333 - 
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:run:284 - Completed analysis for target 'mileage' | output_dir='output/mileage'
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:337 - 🎯 MULTI-TARGET ANALYSIS COMPLETE
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:338 - ============================================================
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:342 - 📊 MAINTENANCE_COST: output/maintenance_cost
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:342 - 📊 EFFICIENCY: output/efficiency
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:342 - 📊 MILEAGE: output/mileage
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:344 - 
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:345 - 🔍 Each target directory contains:
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:346 -   • Model rankings and best models
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:347 -   • Feature importance and selection results
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:348 -   • Comprehensive visualizations and plots
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:349 -   • Performance metrics and final reports
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:_display_overall_summary:350 -   • Cross-validation stability analysis
+2025-10-28 18:10:23 | INFO     | src.vehicle_efficiency.core.pipeline:run:289 - Multi-target analysis completed successfully | 3 targets analyzed
+2025-10-28 18:10:23 | SUCCESS  | __main__:main:169 - Pipeline completed successfully!
+2025-10-28 18:10:23 | INFO     | __main__:main:170 - Results saved to: output
