@@ -72,15 +72,15 @@ class EnhancedPipeline:
 
         # Feature engineering per cohort
         logger.info("Engineering features for EV and ICE cohorts")
-        ev_eng, engineered_features_ev = engineer_features(ds.ev, "ELECTRIC VEHICLES")
-        ice_eng, engineered_features_ice = engineer_features(ds.ice, "ICE VEHICLES")
+        ev_eng, engineered_features_ev = engineer_features(ds.ev, "ELECTRIC VEHICLES", self.target_variable)
+        ice_eng, engineered_features_ice = engineer_features(ds.ice, "ICE VEHICLES", self.target_variable)
         # union of engineered names for reporting
         engineered_features = sorted(list(set(engineered_features_ev + engineered_features_ice)))
 
         # Feature selection
         logger.info("Selecting features per cohort")
-        ev_features = select_features(ev_eng, "ELECTRIC VEHICLES")
-        ice_features = select_features(ice_eng, "ICE VEHICLES")
+        ev_features = select_features(ev_eng, "ELECTRIC VEHICLES", self.target_variable)
+        ice_features = select_features(ice_eng, "ICE VEHICLES", self.target_variable)
         logger.info("Selected features | EV={} | ICE={}", len(ev_features), len(ice_features))
 
         # Models and spaces
@@ -89,9 +89,9 @@ class EnhancedPipeline:
 
         # Train EV and ICE
         logger.info("Training models for EV cohort")
-        ev_train = train_models_for_vehicle_type(ev_eng, ev_features, models, TARGET, search_spaces)
+        ev_train = train_models_for_vehicle_type(ev_eng, ev_features, models, self.target_variable, search_spaces)
         logger.info("Training models for ICE cohort")
-        ice_train = train_models_for_vehicle_type(ice_eng, ice_features, models, TARGET, search_spaces)
+        ice_train = train_models_for_vehicle_type(ice_eng, ice_features, models, self.target_variable, search_spaces)
 
         # Optional fine-tuning of top two and merging results
         if self.enable_fine_tuning:
@@ -242,8 +242,6 @@ class MultiTargetPipeline:
         """Run analysis for all target variables separately."""
         # Define target variables to analyze
         targets = {
-            "maintenance_cost": "maintenance_cost_annual",
-            "efficiency": "efficiency", 
             "mileage": "mileage_km"
         }
         

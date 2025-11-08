@@ -11,16 +11,21 @@ from loguru import logger
 
 def cv_stability_plots(ev_results: Dict[str, dict], ice_results: Dict[str, dict], out_dir: str = "output") -> None:
     logger.info("Saving CV stability plots to {}", out_dir)
-    common = sorted(list(set(ev_results) & set(ice_results)))
+    
+    # Filter for models that have the required CV metrics
+    valid_ev_models = {m: r for m, r in ev_results.items() if "cv_mae_mean" in r and "cv_mae_std" in r}
+    valid_ice_models = {m: r for m, r in ice_results.items() if "cv_mae_mean" in r and "cv_mae_std" in r}
+    
+    common = sorted(list(set(valid_ev_models) & set(valid_ice_models)))
     if not common:
-        print("No common models to plot for CV stability.")
+        logger.warning("No common models with CV metrics to plot for CV stability.")
         return
 
     x = np.arange(len(common))
-    ev_means = [ev_results[m]["cv_mae_mean"] for m in common]
-    ev_stds = [ev_results[m]["cv_mae_std"] for m in common]
-    ice_means = [ice_results[m]["cv_mae_mean"] for m in common]
-    ice_stds = [ice_results[m]["cv_mae_std"] for m in common]
+    ev_means = [valid_ev_models[m]["cv_mae_mean"] for m in common]
+    ev_stds = [valid_ev_models[m]["cv_mae_std"] for m in common]
+    ice_means = [valid_ice_models[m]["cv_mae_mean"] for m in common]
+    ice_stds = [valid_ice_models[m]["cv_mae_std"] for m in common]
 
     # EV
     plt.figure(figsize=(10, 6))
@@ -58,7 +63,7 @@ def cv_stability_plots(ev_results: Dict[str, dict], ice_results: Dict[str, dict]
     plt.close()
 
 
-def simple_dashboard(ev_data: pd.DataFrame, ice_data: pd.DataFrame, ev_results: Dict[str, dict], ice_results: Dict[str, dict], out_path: str) -> None:
+def simple_dashboard(ev_data: pd.DataFrame, ice_data: pd.DataFrame, ev_results: Dict[str, dict], ice_results: Dict[str, dict], out_path: str, target_variable: str = "efficiency") -> None:
     logger.info("Saving simple dashboard to {}", out_path)
     """Lightweight dashboard: distributions and R2/MAE comparisons."""
     common = sorted(list(set(ev_results) & set(ice_results)))
@@ -70,13 +75,12 @@ def simple_dashboard(ev_data: pd.DataFrame, ice_data: pd.DataFrame, ev_results: 
     fig = plt.figure(figsize=(16, 10))
 
     ax1 = plt.subplot(2, 2, 1)
-    ax1.hist(ev_data["efficiency"], bins=30, alpha=0.7, color="green")
-    ax1.set_title("EV Efficiency Distribution")
-    ax1.grid(True, alpha=0.3)
-
-    ax2 = plt.subplot(2, 2, 2)
-    ax2.hist(ice_data["efficiency"], bins=30, alpha=0.7, color="blue")
-    ax2.set_title("ICE Efficiency Distribution")
+    ax1.hist(ev_data[target_variable], bins=30, alpha=0.7, color="green")
+    ax1.set_title(f"EV {target_variable.replace('_', ' ').title()} Distribution")
+    
+    ax2 = plt.subplot(1, 2, 2)
+    ax2.hist(ice_data[target_variable], bins=30, alpha=0.7, color="blue")
+    ax2.set_title(f"ICE {target_variable.replace('_', ' ').title()} Distribution")
     ax2.grid(True, alpha=0.3)
 
     ax3 = plt.subplot(2, 2, 3)
@@ -219,53 +223,62 @@ def individual_plots(
     ice_engineered_data: pd.DataFrame,
     ev_features: List[str],
     ice_features: List[str],
+    target_variable: str = "efficiency",
     out_dir: str = "output/individual_plots",
 ) -> None:
     import os
     os.makedirs(out_dir, exist_ok=True)
     logger.info("Saving individual plots to {}", out_dir)
+    
     common = _common_models(ev_results, ice_results)
+    
+    # Filter for models that have CV results
+    common = [
+        m for m in common
+        if "cv_mae_mean" in ev_results.get(m, {}) and "cv_mae_mean" in ice_results.get(m, {})
+    ]
+    
     best_ev, best_ice = _best_models(ev_results, ice_results)
 
-    # 1 EV efficiency distribution
+    # 1 EV target distribution
     plt.figure(figsize=(12, 8))
-    plt.hist(ev_data["efficiency"], bins=40, alpha=0.7, color="green", density=True, edgecolor="black")
-    plt.axvline(ev_data["efficiency"].mean(), color="darkgreen", linestyle="--", linewidth=3, label=f"Mean: {ev_data['efficiency'].mean():.0f}")
-    plt.axvline(ev_data["efficiency"].median(), color="green", linestyle=":", linewidth=3, label=f"Median: {ev_data['efficiency'].median():.0f}")
-    plt.title("🔋 Electric Vehicle Efficiency Distribution", fontsize=18, fontweight="bold", pad=20)
-    plt.xlabel("Efficiency (km per unit energy)")
+    plt.hist(ev_data[target_variable], bins=40, alpha=0.7, color="green", density=True, edgecolor="black")
+    plt.axvline(ev_data[target_variable].mean(), color="darkgreen", linestyle="--", linewidth=3, label=f"Mean: {ev_data[target_variable].mean():.0f}")
+    plt.axvline(ev_data[target_variable].median(), color="green", linestyle=":", linewidth=3, label=f"Median: {ev_data[target_variable].median():.0f}")
+    plt.title(f"🔋 Electric Vehicle {target_variable.replace('_', ' ').title()} Distribution", fontsize=18, fontweight="bold", pad=20)
+    plt.xlabel(target_variable.replace('_', ' ').title())
     plt.ylabel("Density")
     plt.legend()
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
-    plt.savefig(f"{out_dir}/01_ev_efficiency_distribution.png", dpi=300, bbox_inches="tight")
+    plt.savefig(f"{out_dir}/01_ev_{target_variable}_distribution.png", dpi=300, bbox_inches="tight")
     plt.close()
 
-    # 2 ICE efficiency distribution
+    # 2 ICE target distribution
     plt.figure(figsize=(12, 8))
-    plt.hist(ice_data["efficiency"], bins=40, alpha=0.7, color="blue", density=True, edgecolor="black")
-    plt.axvline(ice_data["efficiency"].mean(), color="darkblue", linestyle="--", linewidth=3, label=f"Mean: {ice_data['efficiency'].mean():.0f}")
-    plt.axvline(ice_data["efficiency"].median(), color="blue", linestyle=":", linewidth=3, label=f"Median: {ice_data['efficiency'].median():.0f}")
-    plt.title("⛽ ICE Efficiency Distribution", fontsize=18, fontweight="bold", pad=20)
-    plt.xlabel("Efficiency (km per unit energy)")
+    plt.hist(ice_data[target_variable], bins=40, alpha=0.7, color="blue", density=True, edgecolor="black")
+    plt.axvline(ice_data[target_variable].mean(), color="darkblue", linestyle="--", linewidth=3, label=f"Mean: {ice_data[target_variable].mean():.0f}")
+    plt.axvline(ice_data[target_variable].median(), color="blue", linestyle=":", linewidth=3, label=f"Median: {ice_data[target_variable].median():.0f}")
+    plt.title(f"⛽ ICE {target_variable.replace('_', ' ').title()} Distribution", fontsize=18, fontweight="bold", pad=20)
+    plt.xlabel(target_variable.replace('_', ' ').title())
     plt.ylabel("Density")
     plt.legend()
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
-    plt.savefig(f"{out_dir}/02_ice_efficiency_distribution.png", dpi=300, bbox_inches="tight")
+    plt.savefig(f"{out_dir}/02_ice_{target_variable}_distribution.png", dpi=300, bbox_inches="tight")
     plt.close()
 
     # 3 EV vs ICE comparison
     plt.figure(figsize=(14, 8))
-    plt.hist(ev_data["efficiency"], bins=35, alpha=0.6, color="green", density=True, label=f"EV (Mean: {ev_data['efficiency'].mean():.0f})", edgecolor="darkgreen")
-    plt.hist(ice_data["efficiency"], bins=35, alpha=0.6, color="blue", density=True, label=f"ICE (Mean: {ice_data['efficiency'].mean():.0f})", edgecolor="darkblue")
-    plt.title("🔋 vs ⛽ Vehicle Efficiency Comparison", fontsize=18, fontweight="bold", pad=20)
-    plt.xlabel("Efficiency (km per unit energy)")
+    plt.hist(ev_data[target_variable], bins=35, alpha=0.6, color="green", density=True, label=f"EV (Mean: {ev_data[target_variable].mean():.0f})", edgecolor="darkgreen")
+    plt.hist(ice_data[target_variable], bins=35, alpha=0.6, color="blue", density=True, label=f"ICE (Mean: {ice_data[target_variable].mean():.0f})", edgecolor="darkblue")
+    plt.title(f"🔋 vs ⛽ Vehicle {target_variable.replace('_', ' ').title()} Comparison", fontsize=18, fontweight="bold", pad=20)
+    plt.xlabel(target_variable.replace('_', ' ').title())
     plt.ylabel("Density")
     plt.legend()
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
-    plt.savefig(f"{out_dir}/03_ev_vs_ice_comparison.png", dpi=300, bbox_inches="tight")
+    plt.savefig(f"{out_dir}/03_ev_vs_ice_{target_variable}_comparison.png", dpi=300, bbox_inches="tight")
     plt.close()
 
     # 4 Model R2 comparison
@@ -326,155 +339,71 @@ def individual_plots(
 
     # 8 EV correlation with target
     if ev_features:
-        ev_corr = ev_engineered_data[ev_features + ["efficiency"]].corr()["efficiency"].drop("efficiency")
+        ev_corr = ev_engineered_data[ev_features + [target_variable]].corr()[target_variable].drop(target_variable)
         plt.figure(figsize=(14, 10))
         vals = ev_corr.sort_values()
         bars = plt.barh(range(len(vals)), vals.values, color=["green" if v >= 0 else "crimson" for v in vals.values], alpha=0.8)
         plt.yticks(range(len(vals)), vals.index)
-        plt.title("🔋 EV Feature Correlation with Efficiency", fontsize=16, fontweight="bold")
+        plt.title(f"🔋 EV Feature Correlation with {target_variable.replace('_', ' ').title()}", fontsize=16, fontweight="bold")
         plt.tight_layout()
-        plt.savefig(f"{out_dir}/08_ev_correlation_analysis.png", dpi=300, bbox_inches="tight")
+        plt.savefig(f"{out_dir}/08_ev_{target_variable}_correlation_analysis.png", dpi=300, bbox_inches="tight")
         plt.close()
 
     # 9 ICE correlation with target
     if ice_features:
-        ice_corr = ice_engineered_data[ice_features + ["efficiency"]].corr()["efficiency"].drop("efficiency")
+        cols_for_corr = [f for f in ice_features if f != target_variable] + [target_variable]
+        ice_corr = ice_engineered_data[cols_for_corr].corr()[target_variable].drop(target_variable)
         plt.figure(figsize=(14, 10))
         vals = ice_corr.sort_values()
         bars = plt.barh(range(len(vals)), vals.values, color=["blue" if v >= 0 else "crimson" for v in vals.values], alpha=0.8)
         plt.yticks(range(len(vals)), vals.index)
-        plt.title("⛽ ICE Feature Correlation with Efficiency", fontsize=16, fontweight="bold")
+        plt.title(f"⛽ ICE Feature Correlation with {target_variable.replace('_', ' ').title()}", fontsize=16, fontweight="bold")
         plt.tight_layout()
-        plt.savefig(f"{out_dir}/09_ice_correlation_analysis.png", dpi=300, bbox_inches="tight")
+        plt.savefig(f"{out_dir}/09_ice_{target_variable}_correlation_analysis.png", dpi=300, bbox_inches="tight")
         plt.close()
 
     # 10 EV correlation heatmap
-    if ev_features:
-        plt.figure(figsize=(12, 10))
-        corr = ev_engineered_data[ev_features + ["efficiency"]].corr()
-        mask = np.triu(np.ones_like(corr, dtype=bool), k=1)
-        sns.heatmap(corr, mask=mask, annot=False, cmap="RdYlBu_r", center=0, square=True)
-        plt.title("🔋 EV Feature Correlations", fontsize=16, fontweight="bold")
-        plt.tight_layout()
-        plt.savefig(f"{out_dir}/10_ev_correlation_heatmap.png", dpi=300, bbox_inches="tight")
-        plt.close()
-
-    # 11 ICE correlation heatmap
-    if ice_features:
-        plt.figure(figsize=(12, 10))
-        corr = ice_engineered_data[ice_features + ["efficiency"]].corr()
-        mask = np.triu(np.ones_like(corr, dtype=bool), k=1)
-        sns.heatmap(corr, mask=mask, annot=False, cmap="RdYlBu_r", center=0, square=True)
-        plt.title("⛽ ICE Feature Correlations", fontsize=16, fontweight="bold")
-        plt.tight_layout()
-        plt.savefig(f"{out_dir}/11_ice_correlation_heatmap.png", dpi=300, bbox_inches="tight")
-        plt.close()
-
-    # 12 EV vs ICE correlation comparison (common features)
-    common_feats = list(set(ev_features) & set(ice_features))
-    if common_feats:
-        ev_c = ev_engineered_data[common_feats + ["efficiency"]].corr()["efficiency"].drop("efficiency")
-        ice_c = ice_engineered_data[common_feats + ["efficiency"]].corr()["efficiency"].drop("efficiency")
-        plt.figure(figsize=(10, 8))
-        plt.scatter(ev_c, ice_c, alpha=0.7, s=100)
-        plt.plot([-1, 1], [-1, 1], "r--", alpha=0.5)
-        for f in common_feats:
-            plt.annotate(f, (ev_c[f], ice_c[f]), xytext=(5, 5), textcoords="offset points", fontsize=8)
-        plt.xlabel("EV Correlation with Efficiency")
-        plt.ylabel("ICE Correlation with Efficiency")
-        plt.title("🔄 EV vs ICE Correlation Comparison", fontsize=16, fontweight="bold")
-        plt.grid(True, alpha=0.3)
-        plt.tight_layout()
-        plt.savefig(f"{out_dir}/12_correlation_comparison.png", dpi=300, bbox_inches="tight")
-        plt.close()
-
-    # 13 Feature engineering summary
-    plt.figure(figsize=(12, 8))
-    cats = ["Selected EV", "Selected ICE"]
-    counts = [len(ev_features), len(ice_features)]
-    bars = plt.bar(cats, counts, color=["green", "blue"], alpha=0.7)
-    for bar, count in zip(bars, counts):
-        plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.5, str(count), ha="center", va="bottom", fontweight="bold")
-    plt.title("🔧 Feature Engineering Summary", fontsize=16, fontweight="bold")
-    plt.ylabel("Number of Features")
-    plt.grid(True, alpha=0.3)
-    plt.tight_layout()
-    plt.savefig(f"{out_dir}/13_feature_engineering_summary.png", dpi=300, bbox_inches="tight")
-    plt.close()
-
-    # 15 Correlation statistics comparison
-    if ev_features and ice_features:
-        ev_corr_stats = ev_engineered_data[ev_features + ["efficiency"]].corr()["efficiency"].drop("efficiency")
-        ice_corr_stats = ice_engineered_data[ice_features + ["efficiency"]].corr()["efficiency"].drop("efficiency")
-        stats_categories = ["Mean |Corr|", "Max |Corr|", "Min |Corr|", "Std"]
-        ev_stats = [ev_corr_stats.abs().mean(), ev_corr_stats.abs().max(), ev_corr_stats.abs().min(), ev_corr_stats.abs().std()]
-        ice_stats = [ice_corr_stats.abs().mean(), ice_corr_stats.abs().max(), ice_corr_stats.abs().min(), ice_corr_stats.abs().std()]
-        x_pos = np.arange(len(stats_categories))
-        w = 0.35
-        plt.figure(figsize=(12, 8))
-        plt.bar(x_pos - w / 2, ev_stats, w, label="EV", color="green", alpha=0.8, edgecolor="darkgreen")
-        plt.bar(x_pos + w / 2, ice_stats, w, label="ICE", color="blue", alpha=0.8, edgecolor="darkblue")
-        plt.xticks(x_pos, stats_categories, rotation=45, ha="right")
-        plt.title("📈 Correlation Statistics Comparison", fontsize=16, fontweight="bold")
-        plt.legend()
-        plt.grid(True, alpha=0.3, axis="y")
-        plt.tight_layout()
-        plt.savefig(f"{out_dir}/15_correlation_statistics.png", dpi=300, bbox_inches="tight")
-        plt.close()
-
-
-def correlation_analysis_dashboard(
-    ev_engineered_data: pd.DataFrame,
-    ice_engineered_data: pd.DataFrame,
-    ev_features: List[str],
-    ice_features: List[str],
-    out_path: str = "output/correlation_analysis_dashboard.png",
-) -> None:
-    logger.info("Saving correlation analysis dashboard to {}", out_path)
-    fig = plt.figure(figsize=(24, 16))
-    fig.suptitle("📊 Correlation Analysis Dashboard", fontsize=18, fontweight="bold")
-
     # EV heatmap
     ax1 = plt.subplot(3, 4, 1)
     if ev_features:
-        corr = ev_engineered_data[ev_features + ["efficiency"]].corr()
+        corr = ev_engineered_data[ev_features + [target_variable]].corr()
         mask = np.triu(np.ones_like(corr, dtype=bool), k=1)
         sns.heatmap(corr, mask=mask, annot=False, cmap="RdYlBu_r", center=0, square=True, ax=ax1)
-        ax1.set_title("🔋 EV Feature Correlations")
+        ax1.set_title(f"🔋 EV Feature Correlations with {target_variable.replace('_', ' ').title()}")
     else:
         ax1.text(0.5, 0.5, "No EV features", ha="center", va="center")
 
     # ICE heatmap
     ax2 = plt.subplot(3, 4, 2)
     if ice_features:
-        corr = ice_engineered_data[ice_features + ["efficiency"]].corr()
+        corr = ice_engineered_data[ice_features + [target_variable]].corr()
         mask = np.triu(np.ones_like(corr, dtype=bool), k=1)
         sns.heatmap(corr, mask=mask, annot=False, cmap="RdYlBu_r", center=0, square=True, ax=ax2)
-        ax2.set_title("⛽ ICE Feature Correlations")
+        ax2.set_title(f"⛽ ICE Feature Correlations with {target_variable.replace('_', ' ').title()}")
     else:
         ax2.text(0.5, 0.5, "No ICE features", ha="center", va="center")
 
     # EV correlation bars (top 10)
     ax3 = plt.subplot(3, 4, 3)
     if ev_features:
-        ev_corr = ev_engineered_data[ev_features + ["efficiency"]].corr()["efficiency"].drop("efficiency").sort_values()
+        ev_corr = ev_engineered_data[ev_features + [target_variable]].corr()[target_variable].drop(target_variable).sort_values()
         top = ev_corr.tail(min(10, len(ev_corr)))
         ax3.barh(range(len(top)), top.values, color=["green" if v >= 0 else "crimson" for v in top.values])
         ax3.set_yticks(range(len(top)))
         ax3.set_yticklabels(top.index)
-        ax3.set_title("🔋 Top EV Correlations")
+        ax3.set_title(f"🔋 Top EV Correlations with {target_variable.replace('_', ' ').title()}")
     else:
         ax3.text(0.5, 0.5, "No EV features", ha="center", va="center")
 
     # ICE correlation bars (top 10)
     ax4 = plt.subplot(3, 4, 4)
     if ice_features:
-        ice_corr = ice_engineered_data[ice_features + ["efficiency"]].corr()["efficiency"].drop("efficiency").sort_values()
+        ice_corr = ice_engineered_data[ice_features + [target_variable]].corr()[target_variable].drop(target_variable).sort_values()
         top = ice_corr.tail(min(10, len(ice_corr)))
         ax4.barh(range(len(top)), top.values, color=["blue" if v >= 0 else "crimson" for v in top.values])
         ax4.set_yticks(range(len(top)))
         ax4.set_yticklabels(top.index)
-        ax4.set_title("⛽ Top ICE Correlations")
+        ax4.set_title(f"⛽ Top ICE Correlations with {target_variable.replace('_', ' ').title()}")
     else:
         ax4.text(0.5, 0.5, "No ICE features", ha="center", va="center")
 
@@ -482,13 +411,13 @@ def correlation_analysis_dashboard(
     ax5 = plt.subplot(3, 4, 5)
     common_feats = list(set(ev_features) & set(ice_features))
     if common_feats:
-        ev_c = ev_engineered_data[common_feats + ["efficiency"]].corr()["efficiency"].drop("efficiency")
-        ice_c = ice_engineered_data[common_feats + ["efficiency"]].corr()["efficiency"].drop("efficiency")
+        ev_c = ev_engineered_data[common_feats + [target_variable]].corr()[target_variable].drop(target_variable)
+        ice_c = ice_engineered_data[common_feats + [target_variable]].corr()[target_variable].drop(target_variable)
         ax5.scatter(ev_c, ice_c, alpha=0.7, s=100)
         ax5.plot([-1, 1], [-1, 1], "r--", alpha=0.5)
-        ax5.set_xlabel("EV Correlation")
-        ax5.set_ylabel("ICE Correlation")
-        ax5.set_title("🔄 EV vs ICE Correlation Comparison")
+        ax5.set_xlabel(f"EV Correlation with {target_variable.replace('_', ' ').title()}")
+        ax5.set_ylabel(f"ICE Correlation with {target_variable.replace('_', ' ').title()}")
+        ax5.set_title(f"🔄 EV vs ICE {target_variable.replace('_', ' ').title()} Correlation Comparison")
         ax5.grid(True, alpha=0.3)
     else:
         ax5.text(0.5, 0.5, "No common features", ha="center", va="center")
@@ -496,7 +425,7 @@ def correlation_analysis_dashboard(
     # Strength distribution & selection impact & stats text
     ax6 = plt.subplot(3, 4, 6)
     if ev_features:
-        ev_target_corr = ev_engineered_data[ev_features + ["efficiency"]].corr()["efficiency"].drop("efficiency")
+        ev_target_corr = ev_engineered_data[ev_features + [target_variable]].corr()[target_variable].drop(target_variable)
         ev_strong = (ev_target_corr.abs() > 0.05).sum()
         ev_moderate = ((ev_target_corr.abs() > 0.02) & (ev_target_corr.abs() <= 0.05)).sum()
         ev_weak = (ev_target_corr.abs() <= 0.02).sum()
@@ -504,13 +433,13 @@ def correlation_analysis_dashboard(
         ax6.bar([0, 1, 2], [ev_strong, ev_moderate, ev_weak], color="green", alpha=0.7)
         ax6.set_xticks([0, 1, 2])
         ax6.set_xticklabels(cats, rotation=30, ha="right")
-        ax6.set_title("🔋 EV Correlation Strength")
+        ax6.set_title(f"🔋 EV {target_variable.replace('_', ' ').title()} Correlation Strength")
     else:
         ax6.text(0.5, 0.5, "No EV features", ha="center", va="center")
 
     ax7 = plt.subplot(3, 4, 7)
     if ice_features:
-        ice_target_corr = ice_engineered_data[ice_features + ["efficiency"]].corr()["efficiency"].drop("efficiency")
+        ice_target_corr = ice_engineered_data[ice_features + [target_variable]].corr()[target_variable].drop(target_variable)
         ice_strong = (ice_target_corr.abs() > 0.05).sum()
         ice_moderate = ((ice_target_corr.abs() > 0.03) & (ice_target_corr.abs() <= 0.05)).sum()
         ice_weak = (ice_target_corr.abs() <= 0.03).sum()
@@ -518,7 +447,7 @@ def correlation_analysis_dashboard(
         ax7.bar([0, 1, 2], [ice_strong, ice_moderate, ice_weak], color="blue", alpha=0.7)
         ax7.set_xticks([0, 1, 2])
         ax7.set_xticklabels(cats, rotation=30, ha="right")
-        ax7.set_title("⛽ ICE Correlation Strength")
+        ax7.set_title(f"⛽ ICE {target_variable.replace('_', ' ').title()} Correlation Strength")
     else:
         ax7.text(0.5, 0.5, "No ICE features", ha="center", va="center")
 
@@ -528,8 +457,58 @@ def correlation_analysis_dashboard(
     ax8.set_title("⚙️ Selection Methodology")
 
     plt.tight_layout()
+def correlation_analysis_dashboard(
+    ev_engineered_data: pd.DataFrame,
+    ice_engineered_data: pd.DataFrame,
+    ev_features: List[str],
+    ice_features: List[str],
+    target_variable: str = "efficiency",
+    out_path: str = "output/correlation_analysis_dashboard.png",
+) -> None:
+    """Generates a dashboard for correlation analysis."""
+    logger.info("Saving correlation analysis dashboard to {}", out_path)
+    fig = plt.figure(figsize=(20, 10))
+    fig.suptitle("Correlation Analysis Dashboard", fontsize=16, fontweight="bold")
+
+    # EV Correlation Heatmap
+    ax1 = plt.subplot(1, 3, 1)
+    if ev_features:
+        ev_corr = ev_engineered_data[ev_features + [target_variable]].corr()
+        sns.heatmap(ev_corr, annot=False, cmap="viridis", ax=ax1)
+        ax1.set_title(f"EV Feature Correlation with {target_variable.replace('_', ' ').title()}")
+    else:
+        ax1.text(0.5, 0.5, "No EV features for correlation.", ha="center", va="center")
+
+    # ICE Correlation Heatmap
+    ax2 = plt.subplot(1, 3, 2)
+    if ice_features:
+        ice_corr = ice_engineered_data[ice_features + [target_variable]].corr()
+        sns.heatmap(ice_corr, annot=False, cmap="plasma", ax=ax2)
+        ax2.set_title(f"ICE Feature Correlation with {target_variable.replace('_', ' ').title()}")
+    else:
+        ax2.text(0.5, 0.5, "No ICE features for correlation.", ha="center", va="center")
+
+    # EV vs. ICE Correlation Comparison
+    ax3 = plt.subplot(1, 3, 3)
+    common_features = list(set(ev_features) & set(ice_features))
+    if common_features:
+        ev_c = ev_engineered_data[common_features + [target_variable]].corr()[target_variable].drop(target_variable)
+        ice_c = ice_engineered_data[common_features + [target_variable]].corr()[target_variable].drop(target_variable)
+        ax3.scatter(ev_c, ice_c, alpha=0.7)
+        ax3.plot([-1, 1], [-1, 1], "r--", alpha=0.5)
+        ax3.set_xlabel(f"EV Correlation with {target_variable.replace('_', ' ').title()}")
+        ax3.set_ylabel(f"ICE Correlation with {target_variable.replace('_', ' ').title()}")
+        ax3.set_title("EV vs. ICE Correlation Comparison")
+        ax3.grid(True, alpha=0.3)
+    else:
+        ax3.text(0.5, 0.5, "No common features for comparison.", ha="center", va="center")
+
+    plt.tight_layout(rect=[0, 0, 1, 0.96])
     plt.savefig(out_path, dpi=300, bbox_inches="tight")
     plt.close()
+
+
+
 
 
 def detailed_correlation_matrices(
@@ -538,6 +517,7 @@ def detailed_correlation_matrices(
     original_features: List[str],
     ev_features: List[str],
     ice_features: List[str],
+    target_variable: str = "efficiency",
     out_path: str = "output/detailed_correlation_matrices.png",
 ) -> None:
     logger.info("Saving detailed correlation matrices to {}", out_path)
@@ -548,9 +528,9 @@ def detailed_correlation_matrices(
     ax1 = plt.subplot(2, 3, 1)
     orig_ev = [f for f in original_features if f in ev_engineered_data.columns]
     if orig_ev:
-        ev_corr = ev_engineered_data[orig_ev + ["efficiency"]].corr()
+        ev_corr = ev_engineered_data[orig_ev + [target_variable]].corr()
         sns.heatmap(ev_corr, annot=False, cmap="RdYlBu_r", center=0, square=True, ax=ax1)
-        ax1.set_title("🔋 EV Original Features Correlation")
+        ax1.set_title(f"🔋 EV Original Features Correlation with {target_variable.replace('_', ' ').title()}")
     else:
         ax1.text(0.5, 0.5, "No original EV features", ha="center", va="center")
 
@@ -558,9 +538,9 @@ def detailed_correlation_matrices(
     ax2 = plt.subplot(2, 3, 2)
     orig_ice = [f for f in original_features if f in ice_engineered_data.columns]
     if orig_ice:
-        ice_corr = ice_engineered_data[orig_ice + ["efficiency"]].corr()
+        ice_corr = ice_engineered_data[orig_ice + [target_variable]].corr()
         sns.heatmap(ice_corr, annot=False, cmap="RdYlBu_r", center=0, square=True, ax=ax2)
-        ax2.set_title("⛽ ICE Original Features Correlation")
+        ax2.set_title(f"⛽ ICE Original Features Correlation with {target_variable.replace('_', ' ').title()}")
     else:
         ax2.text(0.5, 0.5, "No original ICE features", ha="center", va="center")
 
@@ -568,20 +548,20 @@ def detailed_correlation_matrices(
     ax3 = plt.subplot(2, 3, 3)
     common = list(set(orig_ev) & set(orig_ice))
     if common:
-        ev_c = ev_engineered_data[common + ["efficiency"]].corr()["efficiency"].drop("efficiency")
-        ice_c = ice_engineered_data[common + ["efficiency"]].corr()["efficiency"].drop("efficiency")
+        ev_c = ev_engineered_data[common + [target_variable]].corr()[target_variable].drop(target_variable)
+        ice_c = ice_engineered_data[common + [target_variable]].corr()[target_variable].drop(target_variable)
         ax3.scatter(ev_c, ice_c, alpha=0.7, s=100)
         ax3.plot([-1, 1], [-1, 1], "r--", alpha=0.5)
-        ax3.set_xlabel("EV Corr")
-        ax3.set_ylabel("ICE Corr")
-        ax3.set_title("🔄 EV vs ICE Correlation (Original)")
+        ax3.set_xlabel(f"EV Correlation with {target_variable.replace('_', ' ').title()}")
+        ax3.set_ylabel(f"ICE Correlation with {target_variable.replace('_', ' ').title()}")
+        ax3.set_title(f"🔄 EV vs ICE {target_variable.replace('_', ' ').title()} Correlation (Original)")
         ax3.grid(True, alpha=0.3)
     else:
         ax3.text(0.5, 0.5, "No common original features", ha="center", va="center")
 
     # Summary text
     ax4 = plt.subplot(2, 3, 4)
-    txt = "📊 Notes: Matrices show correlations among selected original features and target (efficiency)."
+    txt = f"📊 Notes: Matrices show correlations among selected original features and target ({target_variable})."
     ax4.text(0.05, 0.95, txt, transform=ax4.transAxes, va="top", fontfamily="monospace")
     ax4.set_xticks([]); ax4.set_yticks([])
 
@@ -602,6 +582,7 @@ def advanced_viz(
     original_features: List[str],
     ev_features: List[str],
     ice_features: List[str],
+    target_variable: str = "efficiency",
     output_dir: str = "output",
 ) -> None:
     logger.info("Generating advanced visualizations into {}", output_dir)
@@ -617,6 +598,7 @@ def advanced_viz(
         ice_engineered_data,
         ev_features,
         ice_features,
+        target_variable=target_variable,
         out_dir=f"{output_dir}/individual_plots",
     )
     correlation_analysis_dashboard(
@@ -624,13 +606,14 @@ def advanced_viz(
         ice_engineered_data,
         ev_features,
         ice_features,
-        out_path=f"{output_dir}/correlation_analysis_dashboard.png",
-    )
+        target_variable=target_variable,
+        out_path=f"{output_dir}/correlation_analysis_dashboard.png")
     detailed_correlation_matrices(
         ev_engineered_data,
         ice_engineered_data,
         original_features,
         ev_features,
         ice_features,
+        target_variable=target_variable,
         out_path=f"{output_dir}/detailed_correlation_matrices.png",
     )

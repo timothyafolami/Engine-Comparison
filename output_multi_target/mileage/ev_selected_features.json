@@ -1,0 +1,9 @@
+[
+  "efficiency",
+  "torque_squared",
+  "torque_x_lifespan",
+  "energy_storage_capacity",
+  "co2_emissions_g_per_km",
+  "normalized_cost",
+  "cost_x_maintenance"
+]

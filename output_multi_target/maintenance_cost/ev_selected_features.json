@@ -1,0 +1,12 @@
+[
+  "normalized_maintenance",
+  "maintenance_per_torque",
+  "maintenance_per_year",
+  "cost_x_maintenance",
+  "torque_category_num",
+  "log_storage",
+  "acceleration_category_num",
+  "torque_x_lifespan",
+  "storage_x_lifespan",
+  "normalized_cost"
+]

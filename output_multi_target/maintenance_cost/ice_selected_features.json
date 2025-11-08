@@ -1,0 +1,11 @@
+[
+  "normalized_maintenance",
+  "cost_x_maintenance",
+  "maintenance_per_torque",
+  "maintenance_per_year",
+  "emission_per_storage",
+  "energy_storage_capacity",
+  "acceleration_0_100_kph_sec",
+  "storage_x_lifespan",
+  "co2_emissions_g_per_km"
+]

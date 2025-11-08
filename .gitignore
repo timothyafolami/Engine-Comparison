@@ -183,7 +183,6 @@ Desktop.ini
 # Output directories (keep structure but ignore contents)
 output/*/
 !output/.gitkeep
-output_multi_target/
 catboost_info/
 
 # Log files

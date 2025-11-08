@@ -41,13 +41,14 @@ def train_models_for_vehicle_type(
     data: pd.DataFrame,
     selected_features: List[str],
     models: Dict[str, object],
+    target_variable: str = "efficiency",
     search_spaces: Dict[str, dict] | None = None,
     random_search_iter: int = 30,
     scaler_type: str = "minmax",
 ) -> TrainResults:
     """Train/tune models for a specific dataset with selected features."""
     X = data[selected_features].fillna(data[selected_features].median())
-    y = data["efficiency"]
+    y = data[target_variable]
 
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42

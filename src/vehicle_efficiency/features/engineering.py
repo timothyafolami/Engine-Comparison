@@ -23,7 +23,7 @@ TARGET = "efficiency"
 TARGETS = ["maintenance_cost_annual", "efficiency", "mileage_km"]
 
 
-def engineer_features(df: pd.DataFrame, vehicle_type_label: str) -> Tuple[pd.DataFrame, List[str]]:
+def engineer_features(df: pd.DataFrame, vehicle_type_label: str, target_variable: str) -> Tuple[pd.DataFrame, List[str]]:
     """Create engineered features; ensure no direct leakage from components of target.
 
     Returns a tuple of (engineered_df, engineered_feature_names).
@@ -83,9 +83,12 @@ def engineer_features(df: pd.DataFrame, vehicle_type_label: str) -> Tuple[pd.Dat
     )
 
     # Ensure no leakage: remove target components if present
-    data = data.drop(columns=["mileage_km", "energy_consumption"], errors="ignore")
+    leakage_cols = ["mileage_km", "energy_consumption"]
+    if target_variable in leakage_cols:
+        leakage_cols.remove(target_variable)
+    data = data.drop(columns=leakage_cols, errors="ignore")
 
-    excluded = set(ORIGINAL_FEATURES + [TARGET])
+    excluded = set(ORIGINAL_FEATURES + [target_variable])
     engineered = [c for c in data.columns if c not in excluded]
     logger.info("Engineered {} features (excluding originals & target)", len(engineered))
     return data, engineered
